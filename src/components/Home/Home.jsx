@@ -2,29 +2,73 @@ import image from "../../assets/robo.png";
 import { Button } from "@material-tailwind/react";
 import './Home.css';
 import React, { useContext } from "react";
-import { checkIsMetamaskConnected, checkIsMetamaskPresent, connectToEthersLibrary, connectToMetamask, getWalletBalance } from '../../utils/wallet';
+import {
+  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToEthersLibrary,
+  connectToMetamaskAccount, getChainConnected, getWalletBalance
+} from '../../utils/wallet';
 import { MyContext } from "../App/App";
+import { supportedChains } from "../../utils/commonUtils";
+import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
 
 function Home() {
 
-  const { web3, setWeb3, isMetamaskPresent, setIsMetamaskPresent, walletConected, setWalletConnected } = useContext(MyContext);
+  /** Importing context API's states to use in the component*/
+  const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
+    walletConnected, setWalletConnected, setIsChainSupported,
+    setIsModalOpen, setModalHeading, setModalDescription,
+    setModalButtonEnabled, setWalletEthBalance
+  } = useContext(MyContext);
 
+  /** Connect to metamask wallet and update the context states accordingly */
   const connectWallet = async () => {
-    if (!walletConected) {
-      if (!isMetamaskPresent && checkIsMetamaskPresent()) {
-        setIsMetamaskPresent(true);
-        let wallet = checkIsMetamaskConnected();
-        if (!wallet) {
-          wallet = await connectToMetamask();
-          if (!wallet) {
-            // set popup message to show "User rejected metamask request for connection"
-          }
+    if (!walletConnected) {
+      if (!isMetamaskPresent) {
+        if (checkIsMetamaskPresent()) {
+          setIsMetamaskPresent(true);
+          connectToMetamask();
+        } else {
+          setIsMetamaskPresent(false);
+          setModalHeading(ALERT);
+          setModalDescription(METAMASK_NOT_FOUND_ERROR);
+          setModalButtonEnabled(true);
+          setIsModalOpen(true);
         }
-        // setWeb3(connectToEthersLibrary(window.ethereum));
-        // setWalletConnected(wallet);
       } else {
-        // set popup message to show "Please install metamask"
+        connectToMetamask();
       }
+    }
+  }
+
+  /** Handles metamask connection */
+  const connectToMetamask = async () => {
+    let wallet = checkIsMetamaskConnected();
+    if (!wallet) {
+      wallet = await connectToMetamaskAccount();
+      if (!wallet) {
+        setWalletEthBalance("0");
+        setModalHeading(ALERT);
+        setModalDescription(USER_REQUEST_REJECT_ERROR);
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
+        return;
+      }
+    }
+    await checkChainConnected();
+    setWeb3(connectToEthersLibrary(window.ethereum));
+    setWalletConnected(wallet);
+    setWalletEthBalance(await getWalletBalance(wallet));
+  }
+
+  /** To check metamask connected chain is supported by us or not */
+  const checkChainConnected = async () => {
+    const chain = await getChainConnected();
+    if (!supportedChains[chain]) {
+      setIsChainSupported(false);
+      setWalletEthBalance("0");
+      setModalHeading(ALERT);
+      setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
     }
   }
 
@@ -38,10 +82,10 @@ function Home() {
             className="connect-wallet-btn md:inline
             mb-2 hover:text-black focus:text-black active:text-black">
             {
-              walletConected && walletConected.length ?
-                <span>{walletConected.substring(0, 4) +
+              walletConnected && walletConnected.length ?
+                <span>{walletConnected.substring(0, 4) +
                   "..." +
-                  walletConected.substring(walletConected.length - 4)
+                  walletConnected.substring(walletConnected.length - 4)
                 }</span> :
                 <span onClick={connectWallet}>Connect Wallet</span>
             }

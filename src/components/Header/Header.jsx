@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Navbar,
   MobileNav,
@@ -9,9 +9,78 @@ import {
 import './Header.css';
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import {
+  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToEthersLibrary,
+  connectToMetamaskAccount, getChainConnected, getWalletBalance
+} from "../../utils/wallet";
+import { MyContext } from "../App/App";
+import { supportedChains } from "../../utils/commonUtils";
+import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, NATIVE_TOKEN, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
 
 export default function Header() {
+
+  /** Importing context API's states to use in the component*/
+  const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
+    walletConnected, setWalletConnected, setIsChainSupported,
+    setIsModalOpen, setModalHeading, setModalDescription,
+    setModalButtonEnabled, walletEthBalance, setWalletEthBalance
+  } = useContext(MyContext);
+
+  /** States to open and close navbar in small devices */
   const [openNav, setOpenNav] = React.useState(false);
+
+  /** Connect to metamask wallet and update the context states accordingly */
+  const connectWallet = async () => {
+    if (!walletConnected) {
+      if (!isMetamaskPresent) {
+        if (checkIsMetamaskPresent()) {
+          setIsMetamaskPresent(true);
+          connectToMetamask();
+        } else {
+          setIsMetamaskPresent(false);
+          setModalHeading(ALERT);
+          setModalDescription(METAMASK_NOT_FOUND_ERROR);
+          setModalButtonEnabled(true);
+          setIsModalOpen(true);
+        }
+      } else {
+        connectToMetamask();
+      }
+    }
+  }
+
+  /** Handles metamask connection */
+  const connectToMetamask = async () => {
+    let wallet = checkIsMetamaskConnected();
+    if (!wallet) {
+      wallet = await connectToMetamaskAccount();
+      if (!wallet) {
+        setWalletEthBalance("0");
+        setModalHeading(ALERT);
+        setModalDescription(USER_REQUEST_REJECT_ERROR);
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
+        return;
+      }
+    }
+    await checkChainConnected();
+    setWeb3(connectToEthersLibrary(window.ethereum));
+    setWalletConnected(wallet);
+    setWalletEthBalance(await getWalletBalance(wallet));
+  }
+
+  /** To check metamask connected chain is supported by us or not */
+  const checkChainConnected = async () => {
+    const chain = await getChainConnected();
+    if (!supportedChains[chain]) {
+      setIsChainSupported(false);
+      setWalletEthBalance("0");
+      setModalHeading(ALERT);
+      setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+    }
+  }
 
   React.useEffect(() => {
     window.addEventListener(
@@ -95,13 +164,30 @@ export default function Header() {
           </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
+            {walletConnected ?
+              <Button
+                variant="gradient"
+                size="sm"
+                className="connect-wallet-btn
+                          hidden lg:inline-block"
+              >
+                <span>Balance: {walletEthBalance} {NATIVE_TOKEN}</span>
+              </Button> : <></>
+            }
             <Button
               variant="gradient"
               size="sm"
               className="connect-wallet-btn
                 hidden lg:inline-block hover:text-black focus:text-black active:text-black"
             >
-              <span>Connect Wallet</span>
+              {
+                walletConnected && walletConnected.length ?
+                  <span>{walletConnected.substring(0, 4) +
+                    "..." +
+                    walletConnected.substring(walletConnected.length - 4)
+                  }</span> :
+                  <span onClick={connectWallet}>Connect Wallet</span>
+              }
             </Button>
             <IconButton
               variant="text"
@@ -144,10 +230,24 @@ export default function Header() {
         </div>
         <MobileNav open={openNav}>
           {navList}
+          {walletConnected ?
+            <Button variant="gradient" size="sm" fullWidth
+              className="connect-wallet-btn
+            mb-2">
+              <span>Balance: {walletEthBalance} {NATIVE_TOKEN}</span>
+            </Button> : <></>
+          }
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn
             mb-2 hover:text-black focus:text-black active:text-black">
-            <span>Connect Wallet</span>
+            {
+              walletConnected && walletConnected.length ?
+                <span>{walletConnected.substring(0, 4) +
+                  "..." +
+                  walletConnected.substring(walletConnected.length - 4)
+                }</span> :
+                <span onClick={connectWallet}>Connect Wallet</span>
+            }
           </Button>
         </MobileNav>
       </Navbar>

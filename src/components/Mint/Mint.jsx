@@ -229,7 +229,6 @@ function Mint() {
                   onChange={handleChange}
                 />
               </div>
-
               <div className="col "></div>
               <textarea
                 className="form-control col-12 row-3 input-group text"
@@ -239,7 +238,7 @@ function Mint() {
               ></textarea>
             </div>
             <div className="row">
-              <div className="col-sm-12">
+              <div className="col-sm-12 text-center">
                 <button
                   name="submit"
                   type="submit"

@@ -1,5 +1,3 @@
-import background from "../../assets/background.jpg";
-import Header from "../Header/Header";
 import "./Mint.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

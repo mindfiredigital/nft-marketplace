@@ -1,4 +1,3 @@
-import background from "../../assets/background.jpg";
 import "./Mint.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,104 +9,109 @@ function Mint() {
   return (
     <div className="create-item-container">
       <div className="form-create-item-content">
-        <div className="form-create-item">
-          <div className="sc-heading">
-            <h3>Create NFT</h3>
-            <p className="desc">Most popular nft market place for celebrities</p>
+      <div className="form-create-item">
+        <div className="row">
+          <div className="col-sm-12">
+            <h1 className="text-left sc-heading">Create NFT</h1>
+            <p className="text-left sc-heading">
+              Most popular nft market place for celebrities
+            </p>
           </div>
-          <form id="create-item-1">
-            <label className="uploadFile">
-              <span className="filename">Choose NFT image</span>
-              <input type="file" className="inputfile form-control" name="file" />
-              <span className="icon">
-                <FontAwesomeIcon icon={faCloudArrowUp} />
-              </span>
-            </label>
-
-            <div className="input-group">
-              <input
-                placeholder="NFT Name"
-                className="item-1"
-                name="name"
-                type="text"
-              />
-              <input
-                name="name"
-                className="item-2"
-                type="text"
-                placeholder="NFT Quantities"
-                required=""
-              ></input>
-            </div>
-            <div className="input-group">
-              <input
-                placeholder="Confidence"
-                className="item-1"
-                name="name"
-                type="text"
-              />
-              <input
-                name="name"
-                className="item-2"
-                type="text"
-                placeholder="Energy level"
-                required=""
-              ></input>
-            </div>
-            <div className="input-group">
-              <input
-                placeholder="Personality"
-                className="item-1"
-                name="name"
-                type="text"
-              />
-              <input
-                name="name"
-                className="item-2"
-                type="text"
-                placeholder="Behavior"
-                required=""
-              ></input>
-            </div>
-            <div className="input-group">
-              <input
-                placeholder="Intelligence"
-                className="item-1"
-                name="name"
-                type="text"
-              />
-              <input
-                name="name"
-                className="item-2"
-                type="text"
-                placeholder="Popularity"
-                required=""
-              ></input>
-            </div>
-
-            <textarea
-              id="comment-message"
-              name="message"
-              tabindex="4"
-              placeholder="NFT Description"
-              aria-required="true"
-            ></textarea>
-
-            <button
-              name="submit"
-              type="submit"
-              id="submit"
-              className="sc-button"
-            >
-              <span>
-                <FontAwesomeIcon icon={faPaperPlane} />
-              </span>
-              Mint NFT
-            </button>
-          </form>
         </div>
+
+        <form>
+          <div class="row form-background">
+            <div class="col-sm-12">
+              <label className="uploadFile">
+                <span className="filename">Choose NFT Image</span>
+                <input
+                  type="file"
+                  className="inputfile form-control"
+                  name="file"
+                />
+                <span className="icon">
+                  <FontAwesomeIcon icon={faCloudArrowUp} />
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 form-background input-group">
+              <input
+                type="text"
+                className="form-control item-1"
+                placeholder="NFT Name"
+              />
+              <input
+                type="text"
+                className="form-control item-2"
+                placeholder="NFT Quantities"
+              />
+            </div>
+            <div class="col input-group">
+              <input
+                type="text"
+                className="form-control item-1"
+                placeholder="Confidence"
+              />
+              <input
+                type="text"
+                className="form-control item-2"
+                placeholder="Energy Level"
+              />
+            </div>
+            <div class="col input-group">
+              <input
+                type="text"
+                className="form-control item-1"
+                placeholder="Personality"
+              />
+              <input
+                type="text"
+                className="form-control item-2"
+                placeholder="Behavior"
+              />
+            </div>
+            <div class="col input-group">
+              <input
+                type="text"
+                className="form-control item-1"
+                placeholder="Intelligence"
+              />
+              <input
+                type="text"
+                className="form-control item-2"
+                placeholder="Popularity"
+              />
+            </div>
+
+            <div class="col "></div>
+            <textarea
+              class="form-control col-12 row-3 input-group text"
+              placeholder="NFT Description"
+            ></textarea>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button
+                name="submit"
+                type="submit"
+                id="submit"
+                className="sc-button"
+              >
+                <span>
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </span>
+               Mint NFT
+              </button>
+            </div>
+          </div>
+        </form>
+        
       </div>
     </div>
+    </div>
+    
   );
 }
 

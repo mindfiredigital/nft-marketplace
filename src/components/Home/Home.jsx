@@ -1,7 +1,7 @@
 import image from "../../assets/robo.png";
 import { Button } from "@material-tailwind/react";
 import './Home.css';
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
   connectToMetamaskAccount, getChainConnected, getWalletBalance
@@ -19,8 +19,7 @@ function Home() {
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
     setModalButtonEnabled, setWalletEthBalance,
-    nftContract, setNftContract,
-    marketplaceContract, setMarketplaceContract
+    setNftContract, setMarketplaceContract
   } = useContext(MyContext);
 
   /** Connect to metamask wallet and update the context states accordingly */
@@ -73,6 +72,8 @@ function Home() {
       setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
+    } else {
+      setIsChainSupported(true);
     }
   }
 

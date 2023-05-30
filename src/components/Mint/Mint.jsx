@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./Mint.css";
 import { mapformat } from "../../utils/metaDataFormat";
-import { ALLOWED_IMAGE_FORMATS, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
+import { ALLOWED_IMAGE_FORMATS, MATIC_TX_EXPLORER_URL, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
 import { MyContext } from "../App/App";
-import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR } from "../../utils/messageConstants";
+import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
+import { getWalletBalance } from "../../utils/wallet";
 
 function Mint() {
 
@@ -26,8 +27,9 @@ function Mint() {
 
   /** Importing context API's states to use in the component*/
   const {
-    walletConnected, isChainSupported,
-    setIsModalOpen, setModalHeading, setModalDescription, setModalButtonEnabled
+    web3, walletConnected, isChainSupported, nftContract, walletEthBalance,
+    setWalletEthBalance, setIsModalOpen, setModalHeading, setModalDescription,
+    setModalButtonEnabled, marketplaceContract
   } = useContext(MyContext);
 
   // handle input change function
@@ -131,14 +133,14 @@ function Mint() {
       );
 
       if (uploadResponse.status === 200) {
-        return true;
+        return uploadResponse.data.IpfsHash;
       } else {
-        return false;
+        return null;
       }
 
     } catch (error) {
       console.log("Error in uploading metadata to IPFS : ", error);
-      return false;
+      return null;
     }
   }
 
@@ -173,17 +175,27 @@ function Mint() {
       setModalDescription(`Please choose an image from these extensions ${allowedTypes}. It's mandatory to mint a NFT!`);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
+      return;
     }
-
-    // check user has enough balance to pay gas fee in matic
-
-    const formData = new FormData();
-    formData.append("file", nftImage);
 
     setModalHeading("Minting NFT");
     setModalDescription(`NFT Image is uploading on IPFS. Please wait it may take some time to complete the process`);
     setModalButtonEnabled(false);
     setIsModalOpen(true);
+
+    // check user has enough balance to pay gas fee in matic
+    const check = await checkUserHasSufficientBalanceForTx(nftInfo.quantity, MATIC_TX_EXPLORER_URL);
+
+    if (!check.status) {
+      setModalHeading("Mint NFT Failed");
+      setModalDescription(`Failed to mint NFT because your account doesn't have sufficient balance to pay transaction gas fee!`);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", nftImage);
 
     const uploadResponse = await uploadImageOnIpfs(formData);
 
@@ -204,12 +216,12 @@ function Mint() {
 
       // check of the metadata upload was successful
       if (jsonResponse) {
-        // update modal message as per blockchain tx
-        // do the blockchain tx
-        // set modal message as per blockchain tx
-        setModalDescription(`The metadata of your NFT with the image has been uploaded successfully on IPFS`);
-        setModalButtonEnabled(true);
-        setIsModalOpen(true);
+
+        setModalDescription(`Your NFT mint transacion is in progress, Please wait as it can take some time to complete due to heavy traffic on network!`);
+
+        await mint(nftInfo.quantity, jsonResponse, check.gas);
+
+        setImageName("");
         setnftInfo({
           name: "",
           quantity: "",
@@ -221,6 +233,7 @@ function Mint() {
           popularity: "",
           description: ""
         });
+
       } else {
         setModalHeading("Minting NFT Failed");
         setModalDescription(`Failed to upload NFT metadata on IPFS. Please try again`);
@@ -236,6 +249,66 @@ function Mint() {
     }
 
   };
+
+  /** Execute NFT mint function in Fandom NFT smart contract */
+  const mint = async (amount, uri, gas) => {
+    try {
+
+      let url = "";
+
+      await nftContract.methods.mint(amount, uri)
+        .send({
+          from: walletConnected,
+          gasLimit: gas
+        })
+        .on("transactionHash", (hash) => {
+          url = MATIC_TX_EXPLORER_URL + hash;
+          setModalDescription(`${TRANSACTION_HASH} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
+        })
+        .on("receipt", async () => {
+          setModalDescription(`${SUCCESSFUL_TRANSACTION} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
+          setWalletEthBalance(await getWalletBalance(walletConnected));
+          setModalButtonEnabled(true);
+        })
+        .on("error", async (error) => {
+          setModalHeading("Minting NFT Failed");
+          setModalDescription(`Failed to mint NFT. ${error.message}`);
+          setModalButtonEnabled(true);
+          setWalletEthBalance(await getWalletBalance(walletConnected));
+        })
+
+    } catch (error) {
+      console.log("error in catch : ", error);
+      setModalHeading("Minting NFT Failed");
+      setModalDescription(`Failed to mint NFT. ${error.message}`);
+      setModalButtonEnabled(true);
+    }
+  }
+
+  const checkUserHasSufficientBalanceForTx = async (amount, uri) => {
+    try {
+      const gasLimit = await nftContract.methods.mint(amount, uri)
+        .estimateGas({ from: walletConnected });
+
+      const bufferedGasLimit = Math.round(
+        Number(gasLimit) + (Number(gasLimit) * Number(0.2))
+      );
+
+      const currentGasPrice = await web3.eth.getGasPrice();
+      const txFee = currentGasPrice * bufferedGasLimit;
+      const feeInEth = web3.utils.fromWei(txFee.toString(), 'ether');
+
+      if (Number(walletEthBalance) < Number(feeInEth)) {
+        return { gas: bufferedGasLimit, status: false };
+      } else {
+        return { gas: bufferedGasLimit, status: true };
+      }
+
+    } catch (error) {
+      console.log("Error in estimating transaction fee : ", error);
+      return { gas: 0, status: false };
+    }
+  }
 
   return (
     <div className="create-item-container">
@@ -279,6 +352,7 @@ function Mint() {
                   type="text"
                   className="form-control item-1"
                   name="name"
+                  value={nftInfo.name}
                   placeholder="NFT Name"
                   onChange={handleChange}
                 />
@@ -287,6 +361,7 @@ function Mint() {
                   className="form-control item-2"
                   placeholder="NFT Quantities"
                   name="quantity"
+                  value={nftInfo.quantity}
                   onChange={handleChange}
                 />
               </div>
@@ -295,6 +370,7 @@ function Mint() {
                   type="text"
                   className="form-control item-1"
                   name="confidence"
+                  value={nftInfo.confidence}
                   placeholder="Confidence"
                   onChange={handleChange}
                 />
@@ -302,6 +378,7 @@ function Mint() {
                   type="text"
                   className="form-control item-2"
                   name="energy_level"
+                  value={nftInfo.energy_level}
                   placeholder="Energy Level"
                   onChange={handleChange}
                 />
@@ -312,6 +389,7 @@ function Mint() {
                   className="form-control item-1"
                   placeholder="Personality"
                   name="personality"
+                  value={nftInfo.personality}
                   onChange={handleChange}
                 />
                 <input
@@ -319,6 +397,7 @@ function Mint() {
                   className="form-control item-2"
                   placeholder="Behaviour"
                   name="behavior"
+                  value={nftInfo.behavior}
                   onChange={handleChange}
                 />
               </div>
@@ -328,6 +407,7 @@ function Mint() {
                   className="form-control item-1"
                   placeholder="Intelligence"
                   name="intelligence"
+                  value={nftInfo.intelligence}
                   onChange={handleChange}
                 />
                 <input
@@ -335,6 +415,7 @@ function Mint() {
                   className="form-control item-2"
                   placeholder="Popularity"
                   name="popularity"
+                  value={nftInfo.popularity}
                   onChange={handleChange}
                 />
               </div>
@@ -343,6 +424,7 @@ function Mint() {
                 className="form-control col-12 row-3 input-group text"
                 placeholder="NFT Description"
                 name="description"
+                value={nftInfo.description}
                 onChange={handleChange}
               ></textarea>
             </div>

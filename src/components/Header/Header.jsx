@@ -10,7 +10,7 @@ import './Header.css';
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import {
-  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToEthersLibrary,
+  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
   connectToMetamaskAccount, getChainConnected, getWalletBalance
 } from "../../utils/wallet";
 import { MyContext } from "../App/App";
@@ -64,7 +64,7 @@ export default function Header() {
       }
     }
     await checkChainConnected();
-    setWeb3(connectToEthersLibrary(window.ethereum));
+    setWeb3(connectToWeb3(window.ethereum));
     setWalletConnected(wallet);
     setWalletEthBalance(await getWalletBalance(wallet));
   }

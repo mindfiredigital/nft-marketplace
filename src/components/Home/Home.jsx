@@ -78,21 +78,23 @@ function Home() {
   }
 
   return (
-    <div className="Home h-screen relative md:h-auto">
+    <div className="Home h-screen relative">
       <div className="grid md:grid-cols-2 gap-3 items-center p-8">
         <div>
           <h1 className="font-bold text-4xl md:text-6xl">Discover and collect your favourite digital NTFs</h1>
           <br />
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn md:inline
-            mb-2 hover:text-black focus:text-black active:text-black">
+            mb-2 hover:text-black focus:text-black active:text-black"
+            onClick={connectWallet}
+          >
             {
               walletConnected && walletConnected.length ?
                 <span>{walletConnected.substring(0, 4) +
                   "..." +
                   walletConnected.substring(walletConnected.length - 4)
                 }</span> :
-                <span onClick={connectWallet}>Connect Wallet</span>
+                <span>Connect Wallet</span>
             }
           </Button>
         </div>

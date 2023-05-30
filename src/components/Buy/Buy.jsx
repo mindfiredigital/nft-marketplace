@@ -1,45 +1,45 @@
 import "./Buy.css";
 import NoItem from "../NoItem/NoItem";
 function Buy() {
-//   const item = [
-//     {
-//       image:
-//         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
-//       name: "NFT Name",
-//       description: "NFT Description",
-//       price: 0.3,
-//     },
-//     {
-//       image:
-//         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
-//       name: "NFT Name",
-//       description: "NFT Description",
-//       price: 0.3,
-//     },
+  const item = [
+    {
+      image:
+        "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
+      name: "NFT Name",
+      description: "NFT Description",
+      price: 0.3,
+    },
+    {
+      image:
+        "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
+      name: "NFT Name",
+      description: "NFT Description",
+      price: 0.3,
+    },
 
-//     {
-//       image:
-//         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
-//       name: "NFT Name",
-//       description: "NFT Description",
-//       price: 0.3,
-//     },
-//     {
-//       image:
-//         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
-//       name: "NFT Name",
-//       description: "NFT Description",
-//       price: 0.3,
-//     },
-//     {
-//       image:
-//         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
-//       name: "NFT Name",
-//       description: "NFT Description",
-//       price: 0.3,
-//     },
-//   ];
-const item = []
+    {
+      image:
+        "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
+      name: "NFT Name",
+      description: "NFT Description",
+      price: 0.3,
+    },
+    {
+      image:
+        "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
+      name: "NFT Name",
+      description: "NFT Description",
+      price: 0.3,
+    },
+    {
+      image:
+        "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
+      name: "NFT Name",
+      description: "NFT Description",
+      price: 0.3,
+    },
+  ];
+// const item = []
   return (
     <div>
       {item.length > 0 ? (

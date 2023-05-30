@@ -1,3 +1,4 @@
+import axios from "axios";
 import { PINATA_GATEWAY_BASE_URL } from "./commonUtils";
 
 export function mapformat(old_format) {
@@ -44,4 +45,23 @@ export function mapformat(old_format) {
   }
   return res;
 
+}
+
+
+
+//Get NFT detail from URI
+export async function getNFTDetailsFromURI(uri) {
+  try {
+    const response = await axios.get(uri);
+    if (!response.status===200) {
+      // throw new Error('Unable to fetch NFT metadata');
+      console.error('Unable to fetch NFT metadata');
+      return null;
+    }
+    return response.data;
+    
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }

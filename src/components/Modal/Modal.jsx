@@ -16,7 +16,7 @@ const Modal = ({ setIsModalOpen, heading, description, isButtonEnabled }) => {
           </button>
           <hr />
           {!isButtonEnabled ?
-            <div className="py-8 inline-block">
+            <div className="py-8 inline-block w-full text-center">
               <RingLoader
                 color={"rgba(54, 215, 183, 1)"}
                 loading={true}
@@ -29,7 +29,7 @@ const Modal = ({ setIsModalOpen, heading, description, isButtonEnabled }) => {
             <></>
           }
 
-          <div className="modalContent">
+          <div className={!isButtonEnabled ? "w-full modalContent top-2/3" : "w-full modalContent inset-y-1/2 bottom-4"}>
             <p>{description}</p>
           </div>
           <div className="modalActions">

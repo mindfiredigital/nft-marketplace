@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCloudArrowUp,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
-//local imports
+import { faCloudArrowUp, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./Mint.css";
 import { mapformat } from "../../utils/metaDataFormat";
+import { ALLOWED_IMAGE_FORMATS, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
+import { MyContext } from "../App/App";
+import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR } from "../../utils/messageConstants";
 
 function Mint() {
+
   const [nftImage, setnftImage] = useState(null);
+  const [imageName, setImageName] = useState(null);
   const [nftInfo, setnftInfo] = useState({
     name: "",
     quantity: "",
@@ -20,10 +21,16 @@ function Mint() {
     behavior: "",
     intelligence: "",
     popularity: "",
-    description: "",
-    image: "",
+    description: ""
   });
-  //handle input chnage function
+
+  /** Importing context API's states to use in the component*/
+  const {
+    walletConnected, isChainSupported,
+    setIsModalOpen, setModalHeading, setModalDescription, setModalButtonEnabled
+  } = useContext(MyContext);
+
+  // handle input change function
   const handleChange = (e) => {
     const { name, value } = e.target;
     setnftInfo({
@@ -31,75 +38,59 @@ function Mint() {
       [name]: value,
     });
   };
- 
-  //validate the input data
+
+  // validate the input data
   function validateData(obj) {
     for (const key in obj) {
       const value = obj[key];
-  
-      if (value === "") {
-        console.log(`Validation failed: ${key} should not be empty.`);
+
+      if (!value || value === "") {
+        setModalHeading(ALERT);
+        setModalDescription("All the fields are mandatory, Please fill the form with appropriate values!");
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
         return false;
       }
-  
-      if (key === "quantity" && !Number.isInteger(value)) {
-        console.log("Validation failed: quantity should be an integer.");
+
+      if (key === "quantity" && !parseInt(value)) {
+        setModalHeading(ALERT);
+        setModalDescription("Quantity must be entered in number");
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
         return false;
       }
     }
-  
-    console.log("Validation passed!");
     return true;
   }
-  //handle image chnage function
+
   const handleImageChange = (e) => {
+
     const image = e.target.files[0];
+
     // Extract the file extension from the file name
     var fileExtension = image.name.split(".").pop().toLowerCase();
-
-    // Define an array of allowed image file extensions
-    var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
+    setImageName(image.name);
 
     // Check if the file extension is in the allowed extensions array
-    if (allowedExtensions.includes(fileExtension)) {
-      console.log("Image type is valid.");
+    if (ALLOWED_IMAGE_FORMATS.includes(fileExtension)) {
       setnftImage(image);
     } else {
-      console.log("Invalid image type.");
+      const allowedTypes = ALLOWED_IMAGE_FORMATS.join(", ");
+      setModalHeading("Invalid Image Alert");
+      setModalDescription(`The image type is invalid. Please choose an image from these extensions ${allowedTypes}.`);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
     }
-  };
-  //this function uploads json to ipfs
-  async function uploadJSON(body) {
 
-    const uploadResponse = await axios.post(
-      "https://api.pinata.cloud/pinning/pinJSONToIPFS",
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-          pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
-        },
-      }
-    );
-    if (uploadResponse.status === 200) {
-      console.log("Metadata uploaded successfully:", uploadResponse.data);
-      return true;
-    }
-    return false;
   }
 
-  //uploads image to ipfs validate data and convert data to new format to put json on ipfs
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    //upload image
-    // Upload the image file to Pinata server
-    if (nftImage) {
-      const formData = new FormData();
-      formData.append("file", nftImage);
+  // Upload image on IPFS
+  const uploadImageOnIpfs = async (data) => {
+    try {
+
       const uploadResponse = await axios.post(
-        "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        formData,
+        PINATA_FILE_UPLOAD_URL,
+        data,
         {
           maxContentLength: Infinity,
           headers: {
@@ -110,28 +101,140 @@ function Mint() {
         }
       );
 
-      // Check if the upload was successful
       if (uploadResponse.status === 200) {
-        console.log(uploadResponse, "r");
-        let data = nftInfo;
-        setnftInfo({
-          ...nftInfo,
-          image: uploadResponse.data.IpfsHash,
-        });
-        data.image = uploadResponse.data.IpfsHash;
-        if (validateData(data)) {
-          //console.log(mapformat(data));
-          uploadJSON(mapformat(data));
-          //here smart contract will be called to put the token uri
-        }
-
-        console.log("Image uploaded successfully!");
+        return uploadResponse.data.IpfsHash;
       } else {
-        console.log("Upload failed.");
+        return null;
       }
-    } else {
-      console.log("image cannot be null");
+
+    } catch (error) {
+      console.log("Error in uploading image on IPFS : ", error);
+      return null;
     }
+
+  }
+
+  // Uploads JSON to IPFS
+  async function uploadJSON(body) {
+
+    try {
+      const uploadResponse = await axios.post(
+        PINATA_JSON_UPLOAD_URL,
+        body,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+            pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_KEY,
+          },
+        }
+      );
+
+      if (uploadResponse.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+
+    } catch (error) {
+      console.log("Error in uploading metadata to IPFS : ", error);
+      return false;
+    }
+  }
+
+  //uploads image to ipfs validate data and convert data to new format to put json on ipfs
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    if (!walletConnected) {
+      setModalHeading(ALERT);
+      setModalDescription(METAMASK_DISCONNECTED_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+      return;
+    }
+
+    if (!isChainSupported) {
+      setModalHeading(ALERT);
+      setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+      return;
+    }
+
+    if (!validateData(nftInfo)) {
+      return;
+    }
+
+    if (!nftImage) {
+      const allowedTypes = ALLOWED_IMAGE_FORMATS.join(", ");
+      setModalHeading("Image Alert");
+      setModalDescription(`Please choose an image from these extensions ${allowedTypes}. It's mandatory to mint a NFT!`);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+    }
+
+    // check user has enough balance to pay gas fee in matic
+
+    const formData = new FormData();
+    formData.append("file", nftImage);
+
+    setModalHeading("Minting NFT");
+    setModalDescription(`NFT Image is uploading on IPFS. Please wait it may take some time to complete the process`);
+    setModalButtonEnabled(false);
+    setIsModalOpen(true);
+
+    const uploadResponse = await uploadImageOnIpfs(formData);
+
+    // Check if the image upload was successful
+    if (uploadResponse) {
+
+      setModalDescription(`NFT metadata is uploading on IPFS. Please wait it may take some time to complete the process`);
+      let data = nftInfo;
+
+      setnftInfo({
+        ...nftInfo,
+        image: uploadResponse,
+      });
+
+      data.image = uploadResponse;
+
+      const jsonResponse = await uploadJSON(mapformat(data));
+
+      // check of the metadata upload was successful
+      if (jsonResponse) {
+        // update modal message as per blockchain tx
+        // do the blockchain tx
+        // set modal message as per blockchain tx
+        setModalDescription(`The metadata of your NFT with the image has been uploaded successfully on IPFS`);
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
+        setnftInfo({
+          name: "",
+          quantity: "",
+          confidence: "",
+          energy_level: "",
+          personality: "",
+          behavior: "",
+          intelligence: "",
+          popularity: "",
+          description: ""
+        });
+      } else {
+        setModalHeading("Minting NFT Failed");
+        setModalDescription(`Failed to upload NFT metadata on IPFS. Please try again`);
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
+      }
+
+    } else {
+      setModalHeading("Minting NFT Failed");
+      setModalDescription(`Failed to upload NFT Image on IPFS. Please try again`);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+    }
+
   };
 
   return (
@@ -150,10 +253,16 @@ function Mint() {
           <form onSubmit={handleSubmit}>
             <div className="row form-background">
               <div className="col-sm-12">
-                <label className="uploadFile">
-                  <span className="filename">Choose NFT Image</span>
+                <label className="uploadFile cursor-pointer">
+                  <span className="filename">
+                    {
+                      (imageName && imageName.length > 0) ? imageName :
+                        "Choose NFT Image"
+                    }
+                  </span>
                   <input
                     type="file"
+                    accept="image/*"
                     className="inputfile form-control"
                     name="file"
                     onChange={handleImageChange}
@@ -174,7 +283,7 @@ function Mint() {
                   onChange={handleChange}
                 />
                 <input
-                  type="text"
+                  type="number"
                   className="form-control item-2"
                   placeholder="NFT Quantities"
                   name="quantity"
@@ -208,7 +317,7 @@ function Mint() {
                 <input
                   type="text"
                   className="form-control item-2"
-                  placeholder="Behavior"
+                  placeholder="Behaviour"
                   name="behavior"
                   onChange={handleChange}
                 />

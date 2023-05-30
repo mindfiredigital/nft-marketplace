@@ -5,13 +5,6 @@
   overflow: hidden;
 }
 
-.create-item .sc-heading {
-  margin-bottom: 32px;
-  margin-top: -3px;
-  margin-left: 10px;
-}
-
-
 .form-create-item-content .form-background {
   border-radius: 0px 12px 12px 0px;
   overflow: hidden;
@@ -28,6 +21,8 @@
   margin-bottom: 32px;
   margin-top: -3px;
   text-align: left;
+  font-size: 2rem !important;
+  font-weight: 900 !important;
 }
 
 .uploadFile {
@@ -49,8 +44,6 @@
 .inputfile {
   display: none;
 }
-
-
 
 .item-1 {
   margin-right: 20px;

@@ -194,6 +194,7 @@ export default function Header() {
               size="sm"
               className="connect-wallet-btn
                 hidden lg:inline-block hover:text-black focus:text-black active:text-black"
+              onClick={connectWallet}
             >
               {
                 walletConnected && walletConnected.length ?
@@ -201,7 +202,7 @@ export default function Header() {
                     "..." +
                     walletConnected.substring(walletConnected.length - 4)
                   }</span> :
-                  <span onClick={connectWallet}>Connect Wallet</span>
+                  <span >Connect Wallet</span>
               }
             </Button>
             <IconButton
@@ -254,14 +255,16 @@ export default function Header() {
           }
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn
-            mb-2 hover:text-black focus:text-black active:text-black">
+            mb-2 hover:text-black focus:text-black active:text-black"
+            onClick={connectWallet}
+          >
             {
               walletConnected && walletConnected.length ?
                 <span>{walletConnected.substring(0, 4) +
                   "..." +
                   walletConnected.substring(walletConnected.length - 4)
                 }</span> :
-                <span onClick={connectWallet}>Connect Wallet</span>
+                <span>Connect Wallet</span>
             }
           </Button>
         </MobileNav>

@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Modal from "../Modal/Modal";
 import { supportedChains } from "../../utils/commonUtils";
-import { checkIsMetamaskConnected, connectToEthersLibrary, connectToMetamaskAccount, getWalletBalance } from "../../utils/wallet";
+import { checkIsMetamaskConnected, connectToWeb3, connectToMetamaskAccount, getWalletBalance } from "../../utils/wallet";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
 
 export const MyContext = createContext();
@@ -23,6 +23,8 @@ function App() {
     const [walletConnected, setWalletConnected] = useState(null);
     const [isChainSupported, setIsChainSupported] = useState(false);
     const [walletEthBalance, setWalletEthBalance] = useState("0");
+    const [nftContract, setNftContract] = useState(null);
+    const [marketplaceContract, setMarketplaceContract] = useState(null);
 
     if (window.ethereum) {
 
@@ -64,7 +66,7 @@ function App() {
                         return;
                     }
                 }
-                setWeb3(connectToEthersLibrary(window.ethereum));
+                setWeb3(connectToWeb3(window.ethereum));
                 setWalletConnected(wallet);
                 setIsChainSupported(true);
                 setWalletEthBalance(await getWalletBalance(wallet));
@@ -83,7 +85,9 @@ function App() {
                 modalHeading, setModalHeading,
                 modalDescription, setModalDescription,
                 modalButtonEnabled, setModalButtonEnabled,
-                walletEthBalance, setWalletEthBalance
+                walletEthBalance, setWalletEthBalance,
+                nftContract, setNftContract,
+                marketplaceContract, setMarketplaceContract
             }}>
                 <Header />
                 <div className="min-h-[calc(100vh-164px)]">

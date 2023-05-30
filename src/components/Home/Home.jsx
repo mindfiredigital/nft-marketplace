@@ -3,20 +3,24 @@ import { Button } from "@material-tailwind/react";
 import './Home.css';
 import React, { useContext } from "react";
 import {
-  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToEthersLibrary,
+  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
   connectToMetamaskAccount, getChainConnected, getWalletBalance
 } from '../../utils/wallet';
 import { MyContext } from "../App/App";
 import { supportedChains } from "../../utils/commonUtils";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
+import { nftAbi, nftContractAddress } from "../../utils/abis/fandomNftAbi";
+import { marketplaceAbi, marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
 
 function Home() {
 
   /** Importing context API's states to use in the component*/
-  const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
+  const { web3, setWeb3, isMetamaskPresent, setIsMetamaskPresent,
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled, setWalletEthBalance
+    setModalButtonEnabled, setWalletEthBalance,
+    nftContract, setNftContract,
+    marketplaceContract, setMarketplaceContract
   } = useContext(MyContext);
 
   /** Connect to metamask wallet and update the context states accordingly */
@@ -54,7 +58,7 @@ function Home() {
       }
     }
     await checkChainConnected();
-    setWeb3(connectToEthersLibrary(window.ethereum));
+    setWeb3(connectToWeb3(window.ethereum));
     setWalletConnected(wallet);
     setWalletEthBalance(await getWalletBalance(wallet));
   }

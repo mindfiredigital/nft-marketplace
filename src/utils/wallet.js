@@ -1,4 +1,4 @@
-const { ethers, formatEther } = require("ethers");
+const Web3 = require('web3');
 
 export const connectToMetamaskAccount = async () => {
     try {
@@ -34,11 +34,11 @@ export const getChainConnected = async () => {
     }
 }
 
-export const connectToEthersLibrary = (provider) => {
+export const connectToWeb3 = async (provider) => {
     try {
-        return new ethers.BrowserProvider(provider)
+        return new Web3(provider);
     } catch (error) {
-        console.log("Error connecting to ether library : ", error);
+        console.log("Error connecting to web3 library : ", error);
         return null;
     }
 }
@@ -50,7 +50,7 @@ export const getWalletBalance = async (address) => {
             params: [address, 'latest']
         });
         const balanceInWei = parseInt(balanceInHex, 16);
-        const balanceInEth = formatEther(balanceInWei.toString());
+        const balanceInEth = Web3.utils.fromWei(balanceInWei.toString(), 'ether');
         return balanceInEth;
     } catch (error) {
         console.log("Error in fetching wallet balance: ", error);

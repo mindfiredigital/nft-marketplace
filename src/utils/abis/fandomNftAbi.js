@@ -1,10 +1,10 @@
-export const marketplaceAbi = [
+export const nftAbi = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "nftAddress",
-                "type": "address"
+                "internalType": "string",
+                "name": "baseURI",
+                "type": "string"
             }
         ],
         "stateMutability": "nonpayable",
@@ -15,18 +15,43 @@ export const marketplaceAbi = [
         "inputs": [
             {
                 "indexed": true,
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
             },
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "user",
+                "name": "operator",
                 "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
             }
         ],
-        "name": "ListingPriceChanges",
+        "name": "ApprovalForAll",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "Minted",
         "type": "event"
     },
     {
@@ -34,36 +59,36 @@ export const marketplaceAbi = [
         "inputs": [
             {
                 "indexed": true,
-                "internalType": "uint256",
-                "name": "itemId",
-                "type": "uint256"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "operator",
+                "type": "address"
             },
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "owner",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "to",
                 "type": "address"
             },
             {
                 "indexed": false,
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
+                "internalType": "uint256[]",
+                "name": "ids",
+                "type": "uint256[]"
             },
             {
                 "indexed": false,
-                "internalType": "uint256",
-                "name": "amountListed",
-                "type": "uint256"
+                "internalType": "uint256[]",
+                "name": "values",
+                "type": "uint256[]"
             }
         ],
-        "name": "MarketItemCreated",
+        "name": "TransferBatch",
         "type": "event"
     },
     {
@@ -71,26 +96,57 @@ export const marketplaceAbi = [
         "inputs": [
             {
                 "indexed": true,
-                "internalType": "uint256",
-                "name": "itemId",
-                "type": "uint256"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "operator",
+                "type": "address"
             },
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "buyer",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "to",
                 "type": "address"
             },
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "price",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "TransferSingle",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
                 "type": "uint256"
             },
             {
@@ -100,97 +156,99 @@ export const marketplaceAbi = [
                 "type": "uint256"
             }
         ],
-        "name": "NFTSold",
+        "name": "Transferred",
         "type": "event"
     },
     {
         "anonymous": false,
         "inputs": [
             {
-                "indexed": true,
-                "internalType": "address",
-                "name": "previousOwner",
-                "type": "address"
+                "indexed": false,
+                "internalType": "string",
+                "name": "value",
+                "type": "string"
             },
             {
                 "indexed": true,
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
             }
         ],
-        "name": "OwnershipTransferred",
+        "name": "URI",
         "type": "event"
     },
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
-                "name": "itemId",
+                "name": "id",
                 "type": "uint256"
             }
         ],
-        "name": "buy",
-        "outputs": [],
-        "stateMutability": "payable",
+        "name": "balanceOf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
+                "internalType": "address[]",
+                "name": "accounts",
+                "type": "address[]"
             },
             {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
+                "internalType": "uint256[]",
+                "name": "ids",
+                "type": "uint256[]"
             }
         ],
-        "name": "createMarketItem",
-        "outputs": [],
-        "stateMutability": "payable",
+        "name": "balanceOfBatch",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
-        "name": "fetchMarketItems",
+        "name": "getUserNFTs",
         "outputs": [
             {
                 "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "itemId",
-                        "type": "uint256"
-                    },
                     {
                         "internalType": "uint256",
                         "name": "tokenId",
                         "type": "uint256"
                     },
                     {
-                        "internalType": "uint256",
-                        "name": "price",
-                        "type": "uint256"
-                    },
-                    {
                         "internalType": "string",
-                        "name": "uri",
+                        "name": "tokenURI",
                         "type": "string"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "amountListed",
+                        "name": "amount",
                         "type": "uint256"
                     }
                 ],
-                "internalType": "struct Market.MarketItemDetail[]",
+                "internalType": "struct FandomToken.NFTInfo[]",
                 "name": "",
                 "type": "tuple[]"
             }
@@ -199,71 +257,23 @@ export const marketplaceAbi = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getBalance",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "operator",
+                "type": "address"
             }
         ],
-        "name": "idToMarketItem",
+        "name": "isApprovedForAll",
         "outputs": [
             {
-                "internalType": "uint256",
-                "name": "itemId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address payable",
-                "name": "seller",
-                "type": "address"
-            },
-            {
-                "internalType": "address payable",
-                "name": "buyer",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "units",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "listedTimestamp",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "soldTimestamp",
-                "type": "uint256"
-            },
-            {
                 "internalType": "bool",
-                "name": "sold",
+                "name": "",
                 "type": "bool"
             }
         ],
@@ -271,8 +281,19 @@ export const marketplaceAbi = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "listingPrice",
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+            }
+        ],
+        "name": "mint",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -280,19 +301,19 @@ export const marketplaceAbi = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "operator",
+                "name": "from",
                 "type": "address"
             },
             {
                 "internalType": "address",
-                "name": "from",
+                "name": "to",
                 "type": "address"
             },
             {
@@ -302,7 +323,7 @@ export const marketplaceAbi = [
             },
             {
                 "internalType": "uint256[]",
-                "name": "values",
+                "name": "amounts",
                 "type": "uint256[]"
             },
             {
@@ -311,15 +332,42 @@ export const marketplaceAbi = [
                 "type": "bytes"
             }
         ],
-        "name": "onERC1155BatchReceived",
-        "outputs": [
+        "name": "safeBatchTransferFrom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
             {
-                "internalType": "bytes4",
-                "name": "",
-                "type": "bytes4"
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes",
+                "name": "data",
+                "type": "bytes"
             }
         ],
-        "stateMutability": "pure",
+        "name": "safeTransferFrom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -330,73 +378,13 @@ export const marketplaceAbi = [
                 "type": "address"
             },
             {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "id",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "value",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bytes",
-                "name": "data",
-                "type": "bytes"
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
             }
         ],
-        "name": "onERC1155Received",
-        "outputs": [
-            {
-                "internalType": "bytes4",
-                "name": "",
-                "type": "bytes4"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "renounceOwnership",
+        "name": "setApprovalForAll",
         "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "listingPrices",
-                "type": "uint256"
-            }
-        ],
-        "name": "setListingPrice",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -422,47 +410,46 @@ export const marketplaceAbi = [
     {
         "inputs": [
             {
-                "internalType": "address payable",
-                "name": "recipient",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "amount",
+                "name": "tokenId",
                 "type": "uint256"
             }
         ],
-        "name": "transferEth",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "uri",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "newOwner",
+                "name": "",
                 "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
+            },
             {
                 "internalType": "uint256",
-                "name": "itemId",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "unlistItem",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "userTokenId",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     }
 ];
 
-export const marketplaceContractAddress = "0xa506E05FbF24D45B916F77A23473B930FCaEfA70";
+export const nftContractAddress = "0x9fFac8BA5DA942ad298F20f35A47C2a64FE51C04";

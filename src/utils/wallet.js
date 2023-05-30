@@ -34,7 +34,7 @@ export const getChainConnected = async () => {
     }
 }
 
-export const connectToWeb3 = async (provider) => {
+export const connectToWeb3 = (provider) => {
     try {
         return new Web3(provider);
     } catch (error) {
@@ -57,3 +57,38 @@ export const getWalletBalance = async (address) => {
         return 0;
     }
 }
+
+export const getAllNftsOfUser = async (contract, account) => {
+    try {
+        return await contract.methods.getUserNFTs().call({
+            from: account
+        });
+    } catch (error) {
+        console.log("Error in fetching user NFT's : ", error);
+        return null;
+    }
+}
+
+export const getListingPrice = async (contract) => {
+    try {
+        const listingPrice = await contract.methods.listingPrice().call();
+        const price = Web3.utils.fromWei(listingPrice.toString(), 'ether');
+        return price;
+    } catch (error) {
+        console.log("Error in fetching listing price : ", error);
+        return null;
+    }
+}
+
+export const getAllUnsoldNfts = async (contract) => {
+    try {
+        return await contract.methods.fetchMarketItems().call();
+    } catch (error) {
+        console.log("Error in fetching all unsold NFT's : ", error);
+        return null;
+    }
+}
+
+// put item on sale : createMarketItem payable
+
+// buy item : buy

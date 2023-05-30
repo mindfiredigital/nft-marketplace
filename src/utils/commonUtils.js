@@ -9,3 +9,5 @@ export const PINATA_JSON_UPLOAD_URL = "https://api.pinata.cloud/pinning/pinJSONT
 export const PINATA_FILE_UPLOAD_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
 
 export const ALLOWED_IMAGE_FORMATS = ["jpg", "jpeg", "png", "gif"];
+
+export const MATIC_TX_EXPLORER_URL = "https://mumbai.polygonscan.com/tx/";

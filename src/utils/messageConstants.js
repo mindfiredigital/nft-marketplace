@@ -4,3 +4,5 @@ export const CHAIN_NOT_SUPPORTED_ERROR = "The chain you have connected is not su
 export const METAMASK_DISCONNECTED_ERROR = "Disconnected from metamask, please connect to your metamask account!";
 export const ALERT = "Alert";
 export const NATIVE_TOKEN = "MATIC";
+export const SUCCESSFUL_TRANSACTION = "Your transaction is successful. Please check";
+export const TRANSACTION_HASH = "The hash of your transaction is";

@@ -20,7 +20,6 @@ const Modal = ({ setIsModalOpen, heading, description, isButtonEnabled }) => {
               <RingLoader
                 color={"rgba(54, 215, 183, 1)"}
                 loading={true}
-                // cssOverride={override}
                 size={40}
                 aria-label="Loading Spinner"
                 data-testid="loader"
@@ -30,7 +29,7 @@ const Modal = ({ setIsModalOpen, heading, description, isButtonEnabled }) => {
           }
 
           <div className={!isButtonEnabled ? "w-full modalContent top-2/3" : "w-full modalContent inset-y-1/2 bottom-4"}>
-            <p>{description}</p>
+            <p dangerouslySetInnerHTML={{ __html: description }} className="break-words"></p>
           </div>
           <div className="modalActions">
             <div className="actionsContainer">

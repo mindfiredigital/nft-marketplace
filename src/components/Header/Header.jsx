@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Navbar,
   MobileNav,
@@ -16,14 +16,17 @@ import {
 import { MyContext } from "../App/App";
 import { supportedChains } from "../../utils/commonUtils";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, NATIVE_TOKEN, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
+import { nftAbi, nftContractAddress } from "../../utils/abis/fandomNftAbi";
+import { marketplaceAbi, marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
 
 export default function Header() {
 
   /** Importing context API's states to use in the component*/
-  const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
+  const { web3, setWeb3, isMetamaskPresent, setIsMetamaskPresent,
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled, walletEthBalance, setWalletEthBalance
+    setModalButtonEnabled, walletEthBalance, setWalletEthBalance,
+    setMarketplaceContract, setNftContract
   } = useContext(MyContext);
 
   /** States to open and close navbar in small devices */
@@ -79,8 +82,17 @@ export default function Header() {
       setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
+    } else {
+      setIsChainSupported(true);
     }
   }
+
+  useEffect(() => {
+    if (web3) {
+      setNftContract(new web3.eth.Contract(nftAbi, nftContractAddress));
+      setMarketplaceContract(new web3.eth.Contract(marketplaceAbi, marketplaceContractAddress));
+    }
+  }, [web3, setNftContract, setMarketplaceContract]);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -171,7 +183,10 @@ export default function Header() {
                 className="connect-wallet-btn
                           hidden lg:inline-block"
               >
-                <span>Balance: {walletEthBalance} {NATIVE_TOKEN}</span>
+                <span>Balance: {
+                  !!walletEthBalance ? walletEthBalance.substring(0, 6) :
+                    walletEthBalance
+                } {NATIVE_TOKEN}</span>
               </Button> : <></>
             }
             <Button

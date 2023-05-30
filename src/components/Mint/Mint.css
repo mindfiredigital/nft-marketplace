@@ -93,12 +93,14 @@ textarea {
   background: linear-gradient(130.35deg, #6345ed 17.35%, #dc39fc 78.23%);
   margin-top: 20px;
   border-radius: 19px 19px 19px 19px;
+  padding: 5px;
 }
 
 .sc-button:hover {
   width: 100%;
   background: #6345ed 17.35%;
   margin-top: 20px;
+  padding: 5px;
 }
 
 @media only screen and (max-width: 950px) {

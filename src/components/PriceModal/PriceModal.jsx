@@ -148,6 +148,8 @@ export default function PriceModal(props) {
                 .on("receipt", async () => {
                     setModalDescription(`${SUCCESSFUL_TRANSACTION} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
                     setWalletEthBalance(await getWalletBalance(walletConnected));
+                    const fun = props.setNftItem;
+                    await fun();
                     setModalButtonEnabled(true);
                 })
                 .on("error", async (error) => {

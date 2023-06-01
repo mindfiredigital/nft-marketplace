@@ -11,3 +11,5 @@ export const PINATA_FILE_UPLOAD_URL = "https://api.pinata.cloud/pinning/pinFileT
 export const ALLOWED_IMAGE_FORMATS = ["jpg", "jpeg", "png", "gif"];
 
 export const MATIC_TX_EXPLORER_URL = "https://mumbai.polygonscan.com/tx/";
+
+export const REGEX_FOR_PRICE = /^(?:\d{0,5}\.\d{1,5})$|^\d{0,5}$/;

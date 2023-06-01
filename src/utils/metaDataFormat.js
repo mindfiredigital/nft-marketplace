@@ -47,21 +47,21 @@ export function mapformat(old_format) {
 
 }
 
-
-
 //Get NFT detail from URI
 export async function getNFTDetailsFromURI(uri) {
   try {
+
     const response = await axios.get(uri);
-    if (!response.status===200) {
-      // throw new Error('Unable to fetch NFT metadata');
+
+    if (!response.status === 200) {
       console.error('Unable to fetch NFT metadata');
       return null;
     }
+
     return response.data;
-    
+
   } catch (error) {
-    console.error(error);
+    console.error("Error in fetching nft details : ", error);
     return null;
   }
 }

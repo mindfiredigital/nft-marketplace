@@ -1,4 +1,5 @@
 const Web3 = require('web3');
+const { formatUnits, parseUnits } = require("@ethersproject/units");
 
 export const connectToMetamaskAccount = async () => {
     try {
@@ -50,7 +51,7 @@ export const getWalletBalance = async (address) => {
             params: [address, 'latest']
         });
         const balanceInWei = parseInt(balanceInHex, 16);
-        const balanceInEth = Web3.utils.fromWei(balanceInWei.toString(), 'ether');
+        const balanceInEth = convertToEther(balanceInWei.toString(), 18);
         return balanceInEth;
     } catch (error) {
         console.log("Error in fetching wallet balance: ", error);
@@ -72,7 +73,7 @@ export const getAllNftsOfUser = async (contract, account) => {
 export const getListingPrice = async (contract) => {
     try {
         const listingPrice = await contract.methods.listingPrice().call();
-        const price = Web3.utils.fromWei(listingPrice.toString(), 'ether');
+        const price = convertToEther(listingPrice.toString(), 18);
         return price;
     } catch (error) {
         console.log("Error in fetching listing price : ", error);
@@ -89,6 +90,37 @@ export const getAllUnsoldNfts = async (contract) => {
     }
 }
 
-// put item on sale : createMarketItem payable
+export const noExponents = function (num) {
+    var data = String(num).split(/[eE]/);
+    if (data.length === 1) return data[0];
+
+    var z = '', sign = num < 0 ? '-' : '',
+        str = data[0].replace('.', ''),
+        mag = Number(data[1]) + 1;
+
+    if (mag < 0) {
+        z = sign + '0.';
+        while (mag++) z += '0';
+        // eslint-disable-next-line no-useless-escape
+        return z + str.replace(/^\-/, '');
+    }
+    mag -= str.length;
+    while (mag--) z += '0';
+    return str + z;
+}
+
+export const convertToEther = (data, decimals) => {
+    if (data == 0)
+        return 0;
+    decimals = !!decimals ? decimals : 18
+    data = noExponents(data);
+    return noExponents((formatUnits(data.toString(), decimals)));
+}
+
+export const convertToWei = (data, decimals) => {
+    decimals = !!decimals ? decimals : 18;
+    data = noExponents(data);
+    return noExponents((parseUnits(data.toString(), decimals)));
+}
 
 // buy item : buy

@@ -147,7 +147,7 @@ function Sell() {
             <Detail setshowDetail={setshowDetail} nft_data={nft_data} />
           )}
           {showPricePopup && (
-            <PriceModal setShowPricePopup={setShowPricePopup} nftData={nft_data} listPrice={listingPrice} />
+            <PriceModal setShowPricePopup={setShowPricePopup} nftData={nft_data} listPrice={listingPrice} setNftItem={fetchAllNftsOfUser} />
           )}
         </div> : <NoItem />}
     </div>

@@ -123,6 +123,66 @@ export const marketplaceAbi = [
         "type": "event"
     },
     {
+        "inputs": [],
+        "name": "FetchMYNFT",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "itemId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "tokenId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address payable",
+                        "name": "seller",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address payable",
+                        "name": "buyer",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "units",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "price",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "listedTimestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "soldTimestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "sold",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct Market.MarketItem[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -462,7 +522,71 @@ export const marketplaceAbi = [
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "userNFTs",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "itemId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address payable",
+                "name": "seller",
+                "type": "address"
+            },
+            {
+                "internalType": "address payable",
+                "name": "buyer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "units",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "listedTimestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "soldTimestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "sold",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     }
 ];
 
-export const marketplaceContractAddress = "0xa506E05FbF24D45B916F77A23473B930FCaEfA70";
+export const marketplaceContractAddress = "0x8329f3Ab2Db8fB6cC3d2caF79d5c74169683bd34";

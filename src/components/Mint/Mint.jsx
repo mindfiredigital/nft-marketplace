@@ -7,7 +7,7 @@ import { mapformat } from "../../utils/metaDataFormat";
 import { ALLOWED_IMAGE_FORMATS, MATIC_TX_EXPLORER_URL, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
 import { MyContext } from "../App/App";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
-import { getWalletBalance } from "../../utils/wallet";
+import { convertToEther, getWalletBalance } from "../../utils/wallet";
 
 function Mint() {
 
@@ -29,7 +29,7 @@ function Mint() {
   const {
     web3, walletConnected, isChainSupported, nftContract, walletEthBalance,
     setWalletEthBalance, setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled, marketplaceContract
+    setModalButtonEnabled
   } = useContext(MyContext);
 
   // handle input change function
@@ -179,7 +179,7 @@ function Mint() {
     }
 
     setModalHeading("Minting NFT");
-    setModalDescription(`NFT Image is uploading on IPFS. Please wait it may take some time to complete the process`);
+    setModalDescription(`NFT image is uploading on IPFS. Please wait it may take some time to complete the process`);
     setModalButtonEnabled(false);
     setIsModalOpen(true);
 
@@ -296,7 +296,7 @@ function Mint() {
 
       const currentGasPrice = await web3.eth.getGasPrice();
       const txFee = currentGasPrice * bufferedGasLimit;
-      const feeInEth = web3.utils.fromWei(txFee.toString(), 'ether');
+      const feeInEth = convertToEther(txFee.toString(), 18);
 
       if (Number(walletEthBalance) < Number(feeInEth)) {
         return { gas: bufferedGasLimit, status: false };

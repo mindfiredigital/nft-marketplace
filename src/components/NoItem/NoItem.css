@@ -1,51 +1,7 @@
-/* body {
-    background-color: #f7fafc;
-    background-image: url("../../assets/s.jpg");
-      background-size:cover;
-      background-repeat: no-repeat;
-      background-position: center top;
-  } */
-
-  .containers {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px;
-  }
-
-  .no-items {
-    text-align: center;
-  }
-
-  .no-items .illustration {
-    max-width: 400px;
-    margin-bottom: 40px;
-    opacity: 0.8;
-  }
-
-  .no-items .message {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-color: white;  }
-
-.description {
-    color: white;
-    font-size: 16px;
-  }
-  .data{
-    color: white;
-  }
-
-  .no-items .button {
-    background-color: #ff5e7d;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .no-items .button:hover {
-    background-color: #ff3b5e;
-  }
+.text-container {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}

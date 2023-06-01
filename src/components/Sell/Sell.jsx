@@ -5,7 +5,7 @@ import NoItem from "../NoItem/NoItem";
 function Sell() {
   const [showDetail, setshowDetail] = useState(false);
   const [nft_data, setnft_data] = useState(null);
-  const item = [
+  let item = [
     {
       image:
         "https://harlequin-major-urial-890.mypinata.cloud/ipfs/Qmc5FUhiabxZkeDWSHUk7F2kYrDZ1Y3GUC9XjWD5QFehEF",
@@ -43,8 +43,8 @@ function Sell() {
       price: 0.3,
     },
   ];
-  // const item =[]
-  const openPopup = (i) => {
+   item =[]
+   const openPopup = (i) => {
     setshowDetail(true);
     setnft_data(i);
   };

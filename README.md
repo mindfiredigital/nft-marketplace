@@ -26,5 +26,34 @@ The NFT Marketplace provides a range of features to enhance your experience:
 - Navigate to "Sell" Section
 - You can see the list of NFT you have
 - Click on "sell" button
--
+- Put the price of the NFT
+- click on "confirm"
+
+## Buy NFT
+
+- Connect your Metamask wallet
+- Navigate to "Buy" Section
+- You can see the list of NFT available for sell
+- Click on "buy" button
+
+## Smart Contract Details
+S. No. | Smart Contract | Mumbai Matic Address |
+--- | --- | --- |
+1 | Fandom NFT | [ https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f]( https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f) |
+2 | NFT Marketplace |[https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257](https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257)|
+
+## Sample App
+
+ [https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/](https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/)
+
+
+
+## Setup
+
+- Clone the repo:- `git clone https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend.git`
+- Create a .env file and take reference from .env.sample file to fill it
+- Install NPM packages `npm install`
+- Run to start your project  `npm start`
+
+
 

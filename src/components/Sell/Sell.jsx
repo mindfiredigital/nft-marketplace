@@ -112,11 +112,11 @@ function Sell() {
 
       {(item.length > 0 && walletConnected && isChainSupported) ?
         <div className="sell-page">
-          <div className="container mx-auto px-4">
+          <div className="sell-container mx-auto px-4 py-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
               {item.length > 0 && item.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg card" key={i.nftId}>
+                  <div className="max-w-sm rounded overflow-hidden shadow-lg sell-card" key={i.nftId}>
                     <img src={i.image} alt="#" className="w-full" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
@@ -132,7 +132,7 @@ function Sell() {
                     </div>
                     <div className="px-6 pb-4">
                       <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded sc-button"
+                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded sell-sc-button"
                         onClick={() => openPricePopup(i)}
                       >
                         Sell
@@ -147,9 +147,13 @@ function Sell() {
             <Detail setshowDetail={setshowDetail} nft_data={nft_data} />
           )}
           {showPricePopup && (
-            <PriceModal setShowPricePopup={setShowPricePopup} nftData={nft_data} listPrice={listingPrice} setNftItem={fetchAllNftsOfUser} />
+            <PriceModal setShowPricePopup={setShowPricePopup} nftData={nft_data}
+              listPrice={listingPrice} setNftItem={fetchAllNftsOfUser} />
           )}
-        </div> : <NoItem />}
+        </div> :
+        <NoItem heading={"No NFT's found"}
+          content={"You are not holding any NFT's. Please mint NFT from Mint page to put it on sale!"}
+        />}
     </div>
 
   );

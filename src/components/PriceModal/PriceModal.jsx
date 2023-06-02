@@ -69,11 +69,9 @@ export default function PriceModal(props) {
     };
 
     /** Checks user has sufficient balance to put NFT on sale or not */
-    const checkUserHasSufficientBalanceForTx = async (tokenId, price, amount) => {
+    const checkUserHasSufficientBalanceForTx = async (tokenId, price, amount, listingPriceInWei) => {
 
         try {
-
-            const listingPriceInWei = convertToWei(props.listPrice, 18);
 
             const gasLimit = await marketplaceContract.methods.createMarketItem(tokenId, price, amount)
                 .estimateGas({ from: walletConnected, value: listingPriceInWei });
@@ -129,11 +127,10 @@ export default function PriceModal(props) {
     }
 
     /** Execute NFT list function in NFT marketplace smart contract */
-    const sellTransaction = async (tokenId, price, amount, gas) => {
+    const sellTransaction = async (tokenId, price, amount, gas, listingPriceInWei) => {
         try {
 
             let url = "";
-            const listingPriceInWei = convertToWei(props.listPrice, 18);
 
             await marketplaceContract.methods.createMarketItem(tokenId, price, amount)
                 .send({
@@ -148,8 +145,8 @@ export default function PriceModal(props) {
                 .on("receipt", async () => {
                     setModalDescription(`${SUCCESSFUL_TRANSACTION} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
                     setWalletEthBalance(await getWalletBalance(walletConnected));
-                    const fun = props.setNftItem;
-                    await fun();
+                    const fetchNftsFromIpfs = props.setNftItem;
+                    await fetchNftsFromIpfs();
                     setModalButtonEnabled(true);
                 })
                 .on("error", async (error) => {
@@ -232,7 +229,8 @@ export default function PriceModal(props) {
     /** Executes sell transaction after approval */
     const executeFinalTransaction = async (tokenId, priceInWei, amount) => {
 
-        const balanceCheck = await checkUserHasSufficientBalanceForTx(tokenId, priceInWei, amount);
+        const listingPriceInWei = convertToWei(props.listPrice, 18);
+        const balanceCheck = await checkUserHasSufficientBalanceForTx(tokenId, priceInWei, amount, listingPriceInWei);
 
         if (!balanceCheck.status) {
             setModalHeading("Sell Transaction Failed");
@@ -242,7 +240,7 @@ export default function PriceModal(props) {
             return;
         }
 
-        await sellTransaction(tokenId, priceInWei, amount, balanceCheck.gas);
+        await sellTransaction(tokenId, priceInWei, amount, balanceCheck.gas, listingPriceInWei);
 
     }
 

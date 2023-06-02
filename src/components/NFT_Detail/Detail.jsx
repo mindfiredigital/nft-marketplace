@@ -20,6 +20,8 @@ export default function Detail(props) {
             <h2 className="text-2xl font-bold mb-4 text-center">
               NFT Metadata Details
             </h2>
+            <hr />
+            <br />
             <div className="mb-4 param">
               <strong className="param">TOKEN ID :</strong> {metadata.nftId}
             </div>

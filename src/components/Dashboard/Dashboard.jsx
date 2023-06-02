@@ -135,7 +135,7 @@ function Dashboard() {
   };
   return (
     <div className="dashboard-create-item-containers">
-      {item.length && (
+      {item.length > 0 && isChainSupported && walletConnected && (
         <div className="w-full">
           <div className="dashboard-h">
             <h3>My Collection</h3>
@@ -166,7 +166,7 @@ function Dashboard() {
           </div>
         </div>
       )}
-      {sellItem.length && (
+      {sellItem.length > 0 && isChainSupported && walletConnected && (
         <div className="w-full">
           <div className="dashboard-h">
             <h3>My NFT's on Sale</h3>
@@ -200,7 +200,8 @@ function Dashboard() {
           </div>
         </div>
       )}
-      {!sellItem.length && !item.length && <NoItem />}
+      {!sellItem.length && !item.length &&
+        <NoItem heading="No NFT's found" content="You don't have any NFT's holding. Please mint NFT on Mint page" />}
       {showDetail && (
         <Detail setshowDetail={setshowDetail} nft_data={nft_data} />
       )}

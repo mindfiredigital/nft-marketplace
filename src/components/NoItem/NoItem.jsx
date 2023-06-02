@@ -13,7 +13,7 @@ export default function NoItem(props) {
       <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center text-container">
           <h1 class="text-3xl font-medium text-black">{props.heading}</h1>
-          <p class="mt-2 text-lg text-black-300">
+          <p class="mt-2 text-lg text-black-300 text-black">
             {props.content}
           </p>
         </div>

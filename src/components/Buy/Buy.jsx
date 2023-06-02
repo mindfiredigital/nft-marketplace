@@ -50,6 +50,8 @@ function Buy() {
       }
 
       setIsModalOpen(false);
+    }else{
+      setItem([]);
     }
     setIsModalOpen(false);
 

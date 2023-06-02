@@ -179,7 +179,7 @@ function Buy() {
     <div>
       {(item.length > 0 && walletConnected && isChainSupported) ? (
         <div className="buy-page">
-          <div className="buy-container mx-auto px-4 py-8">
+          <div className="buy-container mx-auto px-4 pb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
               {item.length > 0 &&
                 item.map((i) => {

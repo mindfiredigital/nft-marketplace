@@ -1,14 +1,13 @@
 .h {
-  text-align: left;
-  width: 80%;
   height: 100px;
   align-items: center;
   padding: 30px;
   justify-content: center;
-  border-radius: 35px;
+  /* border-radius: 35px; */
   margin-top: 10px;
   background: #222232;
   box-shadow: 4px 4px 60px rgba(99, 69, 237, 0.15);
+  text-align: center;
 }
 .create-item-containers {
   background-color: #282c34;

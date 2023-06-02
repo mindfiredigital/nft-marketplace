@@ -90,7 +90,7 @@ function App() {
                 marketplaceContract, setMarketplaceContract
             }}>
                 <Header />
-                <div className="min-h-[calc(100vh-164px)]">
+                <div className="min-h-[calc(100vh-164px)] bg-[#282c34]">
                     <Outlet />
                 </div>
                 <div className="bottom-0">

@@ -28,7 +28,6 @@ function Buy() {
     setModalButtonEnabled(false);
 
     const nfts = await getAllUnsoldNfts(marketplaceContract);
-    console.log("nfts : ", nfts);
 
     if (nfts && nfts.length) {
 
@@ -52,7 +51,7 @@ function Buy() {
 
       setIsModalOpen(false);
     }
-    setModalButtonEnabled(false);
+    setIsModalOpen(false);
 
   }
 
@@ -72,7 +71,7 @@ function Buy() {
 
   /** Handles confirmation of user for buying NFT */
   const buy = async (selectedNft) => {
-    console.log("hiiiiiiiiiiiiii");
+
     setIsModalOpen(true);
     setModalHeading("Buy Transaction");
     setModalDescription("Your buy transacion is in progress, Please wait as it can take some time to complete due to heavy traffic on network!")
@@ -96,19 +95,19 @@ function Buy() {
   };
 
   /** Checks user has sufficient balance to put NFT on sale or not */
-  const checkUserHasSufficientBalanceForTx = async (itemId, price) => {
+  const checkUserHasSufficientBalanceForTx = async (itemId, priceInWei) => {
 
     try {
 
       const gasLimit = await marketplaceContract.methods.buy(itemId)
-        .estimateGas({ from: walletConnected, value: price });
+        .estimateGas({ from: walletConnected, value: priceInWei });
 
       const bufferedGasLimit = Math.round(
         Number(gasLimit) + (Number(gasLimit) * Number(0.2))
       );
 
       const currentGasPrice = await web3.eth.getGasPrice();
-      const txFee = (Number(currentGasPrice) * bufferedGasLimit) + Number(price);
+      const txFee = (Number(currentGasPrice) * bufferedGasLimit) + Number(priceInWei);
       const feeInEth = convertToEther(txFee.toString(), 18);
 
       if (Number(walletEthBalance) < Number(feeInEth)) {
@@ -118,14 +117,14 @@ function Buy() {
       }
 
     } catch (error) {
-      console.log("Error in estimating transaction fee : ", JSON.stringify(error));
+      console.log("Error in estimating transaction fee : ", error);
       return { gas: 0, status: false };
     }
 
   }
 
   /** Execute NFT buy function in NFT marketplace smart contract */
-  const buyTransaction = async (itemId, price, gas) => {
+  const buyTransaction = async (itemId, priceInWei, gas) => {
     try {
 
       let url = "";
@@ -134,7 +133,7 @@ function Buy() {
         .send({
           from: walletConnected,
           gasLimit: gas,
-          value: price
+          value: priceInWei
         })
         .on("transactionHash", (hash) => {
           url = MATIC_TX_EXPLORER_URL + hash;
@@ -154,7 +153,7 @@ function Buy() {
         })
 
     } catch (error) {
-      console.log("error in catch : ", error);
+      console.log("Error in buy transaction : ", error);
       setModalHeading("Buy Transaction Failed");
       setModalDescription(`Failed to buy NFT. ${error.message}`);
       setModalButtonEnabled(true);

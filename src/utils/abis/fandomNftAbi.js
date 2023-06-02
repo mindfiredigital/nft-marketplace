@@ -450,6 +450,6 @@ export const nftAbi = [
         "stateMutability": "view",
         "type": "function"
     }
-]
+];
 
-export const nftContractAddress = "0xe8b09AA5918fEfDBa72602A9cfdfeF893EfD7aA7";
+export const nftContractAddress = "0x66845655916Aae5358D462bFaC95a2b9c6CfC17f";

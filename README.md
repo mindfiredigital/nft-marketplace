@@ -4,7 +4,7 @@ Fandom is a platform for fans to connect with their favorite celebrities and col
 Fans can discover, collect, and engage with exclusive NFTs from their most cherished celebrities.
 
 ## Features
-The NFT Marketplace provides a range of features to enhance your experience:
+The NFT Marketplace provides a range of features to enhance your experience :-
 
 - Browse and discover a diverse collection of NFTs from various categories.
 - Wallet integration to securely store and manage your digital assets.
@@ -15,26 +15,26 @@ The NFT Marketplace provides a range of features to enhance your experience:
 ## Mint NFT
 
 - Connect your Metamask wallet
-- Navigate to "Mint" Section
-- upload the image
+- Navigate to "Mint" section
+- Upload the image
 - Fill NFt attribute details
-- Click on "mint NFT" button
+- Click on "Mint NFT" button
 
 ## Sell NFT
 
 - Connect your Metamask wallet
-- Navigate to "Sell" Section
+- Navigate to "Sell" section
 - You can see the list of NFT you have
-- Click on "sell" button
+- Click on "Sell" button
 - Put the price of the NFT
-- click on "confirm"
+- Click on "Confirm"
 
 ## Buy NFT
 
 - Connect your Metamask wallet
-- Navigate to "Buy" Section
+- Navigate to "Buy" section
 - You can see the list of NFT available for sell
-- Click on "buy" button
+- Click on "Buy" button
 
 ## Smart Contract Details
 S. No. | Smart Contract | Mumbai Matic Address |

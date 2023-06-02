@@ -113,7 +113,7 @@ function Sell() {
       {(item.length > 0 && walletConnected && isChainSupported) ?
         <div className="sell-page">
           <div className="sell-container mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-12">
               {item.length > 0 && item.map((i) => {
                 return (
                   <div className="max-w-sm rounded overflow-hidden shadow-lg sell-card" key={i.nftId}>

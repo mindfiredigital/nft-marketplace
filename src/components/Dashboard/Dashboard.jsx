@@ -150,7 +150,7 @@ function Dashboard() {
           <div className="dashboard-h">
             <h3>My Collection</h3>
           </div>
-          <div className="flex flex-wrap items-center my-[25px] justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-12">
             {item.length > 0 &&
               item.map((i) => {
                 return (
@@ -181,7 +181,7 @@ function Dashboard() {
           <div className="dashboard-h">
             <h3>My NFT's on Sale</h3>
           </div>
-          <div className="flex flex-wrap items-center my-[25px] justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-12">
             {sellItem.length > 0 &&
               sellItem.map((i) => {
                 return (

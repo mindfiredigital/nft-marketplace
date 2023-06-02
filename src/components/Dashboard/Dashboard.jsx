@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import "./Dashboard.css";
-import Detail from "../NFT_Detail/Detail";
+import Detail from "../Detail/Detail";
 import NoItem from "../NoItem/NoItem";
 import { MyContext } from "../App/App";
 import {

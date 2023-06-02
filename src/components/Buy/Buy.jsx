@@ -4,7 +4,7 @@ import { MyContext } from "../App/App";
 import { useContext, useEffect, useState } from "react";
 import { convertToEther, convertToWei, getAllUnsoldNfts, getWalletBalance } from "../../utils/wallet";
 import { getNFTDetailsFromURI } from "../../utils/metaDataFormat";
-import Detail from "../NFT_Detail/Detail";
+import Detail from "../Detail/Detail";
 import { NATIVE_TOKEN, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
 import { MATIC_TX_EXPLORER_URL } from "../../utils/commonUtils";
 function Buy() {

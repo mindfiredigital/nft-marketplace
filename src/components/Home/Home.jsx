@@ -1,7 +1,7 @@
 import image from "../../assets/robo.png";
 import { Button } from "@material-tailwind/react";
 import './Home.css';
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import {
   checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
   connectToMetamaskAccount, getChainConnected, getWalletBalance
@@ -9,17 +9,14 @@ import {
 import { MyContext } from "../App/App";
 import { supportedChains } from "../../utils/commonUtils";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
-import { nftAbi, nftContractAddress } from "../../utils/abis/fandomNftAbi";
-import { marketplaceAbi, marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
 
 function Home() {
 
   /** Importing context API's states to use in the component*/
-  const { web3, setWeb3, isMetamaskPresent, setIsMetamaskPresent,
+  const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled, setWalletEthBalance,
-    setNftContract, setMarketplaceContract
+    setModalButtonEnabled, setWalletEthBalance
   } = useContext(MyContext);
 
   /** Connect to metamask wallet and update the context states accordingly */

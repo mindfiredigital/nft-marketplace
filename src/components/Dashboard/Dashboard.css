@@ -3,7 +3,6 @@
   align-items: center;
   padding: 30px;
   justify-content: center;
-  /* border-radius: 35px; */
   margin-top: 10px;
   background: #222232;
   box-shadow: 4px 4px 60px rgba(99, 69, 237, 0.15);
@@ -11,7 +10,6 @@
 }
 .dashboard-create-item-containers {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,8 +29,7 @@
   box-shadow: 4px 4px 60px rgba(99, 69, 237, 0.15);
   border-radius: 12px;
   overflow: hidden;
-  margin-left: 15px;
-  width: 25rem;
+  /* width: 25rem; */
   margin-top: 5px;
   margin-bottom: 5px;
 }

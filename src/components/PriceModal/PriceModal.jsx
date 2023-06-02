@@ -8,7 +8,7 @@ import { marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
 export default function PriceModal(props) {
 
     /** Stores new price of NFT to be sold */
-    const [price, setPrice] = useState();
+    const [price, setPrice] = useState(0);
 
     /** Importing context API's states to use in the component*/
     const {
@@ -17,7 +17,7 @@ export default function PriceModal(props) {
     } = useContext(MyContext);
 
     const handleCancel = () => {
-        setPrice();
+        setPrice(0);
         props.setShowPricePopup(false);
     };
 
@@ -37,7 +37,7 @@ export default function PriceModal(props) {
         if (newPrice) {
 
             props.setShowPricePopup(false);
-            setPrice();
+            setPrice(0);
 
             if (newPrice < Number(props.listPrice)) {
                 setIsModalOpen(true);
@@ -60,7 +60,7 @@ export default function PriceModal(props) {
 
         } else {
             props.setShowPricePopup(false);
-            setPrice();
+            setPrice(0);
             setIsModalOpen(true);
             setModalHeading(ALERT);
             setModalDescription("Invalid price! Please enter correct value for NFT sell price");
@@ -157,7 +157,7 @@ export default function PriceModal(props) {
                 })
 
         } catch (error) {
-            console.log("error in catch : ", error);
+            console.log("Error in sell transaction : ", error);
             setModalHeading("Sell Transaction Failed");
             setModalDescription(`Failed to put NFT on sale. ${error.message}`);
             setModalButtonEnabled(true);

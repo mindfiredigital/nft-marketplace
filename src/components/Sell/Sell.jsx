@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Sell.css";
-import Detail from "../NFT_Detail/Detail";
+import Detail from "../Detail/Detail";
 import NoItem from "../NoItem/NoItem";
 import { NATIVE_TOKEN } from "../../utils/messageConstants";
 import { MyContext } from "../App/App";

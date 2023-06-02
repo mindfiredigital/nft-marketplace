@@ -70,6 +70,17 @@ export const getAllNftsOfUser = async (contract, account) => {
     }
 }
 
+export const getAllListedNftsOfUser = async (contract, account) => {
+    try {
+        return await contract.methods.fetchMyNfts().call({
+            from: account
+        });
+    } catch (error) {
+        console.log("Error in fetching user NFT's : ", error);
+        return null;
+    }
+}
+
 export const getListingPrice = async (contract) => {
     try {
         const listingPrice = await contract.methods.listingPrice().call();

@@ -250,7 +250,10 @@ export default function Header() {
             <Button variant="gradient" size="sm" fullWidth
               className="connect-wallet-btn
             mb-2">
-              <span>Balance: {walletEthBalance} {NATIVE_TOKEN}</span>
+              <span>Balance: {
+                !!walletEthBalance ? walletEthBalance.substring(0, 6) :
+                  walletEthBalance
+              } {NATIVE_TOKEN}</span>
             </Button> : <></>
           }
           <Button variant="gradient" size="sm" fullWidth

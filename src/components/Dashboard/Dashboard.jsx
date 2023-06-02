@@ -9,7 +9,9 @@ import {
   convertToEther,
 } from "../../utils/wallet";
 import { getNFTDetailsFromURI } from "../../utils/metaDataFormat";
+
 function Dashboard() {
+
   const [showDetail, setshowDetail] = useState(false);
   const [nft_data, setnft_data] = useState(null);
   const [item, setItem] = useState([]);
@@ -28,13 +30,16 @@ function Dashboard() {
   } = useContext(MyContext);
 
   const fetchAllNftsOfUser = async () => {
+
     setIsModalOpen(true);
     setModalHeading("Fetching your NFT's");
     setModalDescription(
       "Fetching your NFT's. Please hold on, it may take few seconds"
     );
     setModalButtonEnabled(false);
+
     const nfts = await getAllNftsOfUser(nftContract, walletConnected);
+
     if (nfts && nfts.length) {
       let data;
       let itemList = [];
@@ -54,17 +59,19 @@ function Dashboard() {
   };
 
   const fetchListedNftsOfUser = async () => {
+
     setIsModalOpen(true);
     setModalHeading("Fetching your NFT's");
     setModalDescription(
       "Fetching your NFT's. Please hold on, it may take few seconds"
     );
     setModalButtonEnabled(false);
+
     const nfts = await getAllListedNftsOfUser(
       marketplaceContract,
       walletConnected
     );
-    console.log(nfts, "nftlist");
+
     if (nfts && nfts.length) {
       let data;
       let itemList = [];
@@ -100,6 +107,7 @@ function Dashboard() {
       attributes: data.attributes,
     };
   };
+
   //On sale NFT Detail
   const setSellNftItem = (data, nftId, uri, amount, price) => {
     return {
@@ -129,10 +137,12 @@ function Dashboard() {
       setSellItem([]);
     }
   }, [marketplaceContract, walletConnected]);
+
   const openPopup = (i) => {
     setshowDetail(true);
     setnft_data(i);
   };
+  
   return (
     <div className="dashboard-create-item-containers">
       {item.length > 0 && isChainSupported && walletConnected && (

@@ -203,7 +203,7 @@ export default function PriceModal(props) {
                     .on("receipt", async () => {
 
                         setModalHeading("Sell Transaction");
-                        setModalDescription(`${SUCCESSFUL_TRANSACTION} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
+                        setModalDescription(`Please confirm the sell transaction in metamask`);
                         setWalletEthBalance(await getWalletBalance(walletConnected));
                         await executeFinalTransaction(tokenId, priceInWei, amount);
 

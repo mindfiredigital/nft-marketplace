@@ -1,6 +1,6 @@
 import "./NoItem.css";
 import image from "../../assets/k.jpg";
-export default function NoItem() {
+export default function NoItem(props) {
   return (
     <div>
       <div class="absolute inset-0 flex justify-center items-center">
@@ -12,9 +12,9 @@ export default function NoItem() {
       </div>
       <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center text-container">
-          <h1 class="text-3xl font-medium text-black">No Items Found</h1>
+          <h1 class="text-3xl font-medium text-black">{props.heading}</h1>
           <p class="mt-2 text-lg text-black-300">
-            There are no items available at the moment.
+            {props.content}
           </p>
         </div>
       </div>

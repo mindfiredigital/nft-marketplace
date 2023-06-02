@@ -134,18 +134,18 @@ function Dashboard() {
     setnft_data(i);
   };
   return (
-    <div className="create-item-containers">
+    <div className="dashboard-create-item-containers">
       {item.length && (
         <div className="w-full">
-          <div className="h">
+          <div className="dashboard-h">
             <h3>My Collection</h3>
           </div>
           <div className="flex flex-wrap items-center my-[25px] justify-center">
             {item.length > 0 &&
               item.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg card">
-                    <img src={i.image} alt="#" className="w-full" />
+                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card">
+                    <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
                       <p className="text-white-700 text-base">
@@ -154,7 +154,7 @@ function Dashboard() {
                     </div>
                     <div className="px-6 pb-4">
                       <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded sc-button"
+                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded dashboard-sc-button"
                         onClick={() => openPopup(i)}
                       >
                         Detail
@@ -168,15 +168,15 @@ function Dashboard() {
       )}
       {sellItem.length && (
         <div className="w-full">
-          <div className="h">
+          <div className="dashboard-h">
             <h3>My NFT's on Sale</h3>
           </div>
           <div className="flex flex-wrap items-center my-[25px] justify-center">
             {sellItem.length > 0 &&
               sellItem.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg card">
-                    <img src={i.image} alt="#" className="w-full" />
+                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card">
+                    <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
                       <p className="text-white-700 text-base">
@@ -188,7 +188,7 @@ function Dashboard() {
                     </div>
                     <div className="px-6 pb-4">
                       <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded sc-button"
+                        className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded dashboard-sc-button"
                         onClick={() => openPopup(i)}
                       >
                         Detail

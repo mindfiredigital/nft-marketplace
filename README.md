@@ -39,12 +39,12 @@ The NFT Marketplace provides a range of features to enhance your experience:
 ## Smart Contract Details
 S. No. | Smart Contract | Mumbai Matic Address |
 --- | --- | --- |
-1 | Fandom NFT | [ https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f]( https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f){:target="_blank"} |
-2 | NFT Marketplace |[https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257](https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257){:target="_blank"}|
+1 | Fandom NFT | [ https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f]( https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f){target="_blank"} |
+2 | NFT Marketplace |[https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257](https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257){target="_blank"}|
 
 ## Sample App
 
- [https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/](https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/){:target="_blank"}
+ [https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/](https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/){target="_blank"}
 
 
 

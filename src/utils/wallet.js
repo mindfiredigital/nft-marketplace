@@ -122,5 +122,3 @@ export const convertToWei = (data, decimals) => {
     data = noExponents(data);
     return noExponents((parseUnits(data.toString(), decimals)));
 }
-
-// buy item : buy

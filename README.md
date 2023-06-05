@@ -39,12 +39,12 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 ## Smart Contract Details
 S. No. | Smart Contract | Mumbai Matic Address |
 --- | --- | --- |
-1 | Fandom NFT | <a href="https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f" target="_blank">https://mumbai.polygonscan.com/address/0x66845655916Aae5358D462bFaC95a2b9c6CfC17f</a> |
-2 | NFT Marketplace | <a href="https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257" target="_blank">https://mumbai.polygonscan.com/address/0xD0dcCDD68951d37967B945c7c8801768395ed257</a> |
+1 | Fandom NFT | <a href="https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3" target="_blank">https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3</a> |
+2 | NFT Marketplace | <a href="https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a" target="_blank">https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a</a> |
 
 ## Sample App
 
-<a href="https://6479f3af4a89e91047b72501--splendorous-starburst-4a6a63.netlify.app/" target="_blank">https://6479f3af4a89e91047b72501--splendorous-starburst-4a6a63.netlify.app/</a> 
+<a href="https://647dbce057e13a02b7b23317--lustrous-mochi-a4c749.netlify.app/" target="_blank">https://647dbce057e13a02b7b23317--lustrous-mochi-a4c749.netlify.app/</a> 
 
 
 ## Setup

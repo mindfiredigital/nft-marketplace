@@ -44,7 +44,7 @@ S. No. | Smart Contract | Mumbai Matic Address |
 
 ## Sample App
 
-<a href="https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/" target="_blank">https://6479d264816eb220927aed3e--snazzy-bublanina-bf0cee.netlify.app/</a> 
+<a href="https://6479f3af4a89e91047b72501--splendorous-starburst-4a6a63.netlify.app/" target="_blank">https://6479f3af4a89e91047b72501--splendorous-starburst-4a6a63.netlify.app/</a> 
 
 
 ## Setup

@@ -564,4 +564,4 @@ export const marketplaceAbi = [
     }
 ];
 
-export const marketplaceContractAddress = "0xD0dcCDD68951d37967B945c7c8801768395ed257";
+export const marketplaceContractAddress = "0xF0dF57b57B2B9F911e2d4e16F842874cF390847a";

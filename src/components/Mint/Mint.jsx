@@ -6,7 +6,7 @@ import "./Mint.css";
 import { mapformat } from "../../utils/metaDataFormat";
 import { ALLOWED_IMAGE_FORMATS, MATIC_TX_EXPLORER_URL, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
 import { MyContext } from "../App/App";
-import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
+import { ALERT, ATTRIBUTES_NUMERIC_VALUE_ERROR, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
 import { convertToEther, getWalletBalance } from "../../utils/wallet";
 
 function Mint() {
@@ -15,14 +15,13 @@ function Mint() {
   const [imageName, setImageName] = useState(null);
   const [nftInfo, setnftInfo] = useState({
     name: "",
+    description: "",
     quantity: "",
-    confidence: "",
-    energy_level: "",
-    personality: "",
-    behavior: "",
-    intelligence: "",
-    popularity: "",
-    description: ""
+    rarity: "",
+    style: "",
+    beauty: "",
+    comedy: "",
+    action: ""
   });
 
   /** Importing context API's states to use in the component*/
@@ -45,7 +44,6 @@ function Mint() {
   function validateData(obj) {
     for (const key in obj) {
       const value = obj[key];
-
       if (!value || value === "") {
         setModalHeading(ALERT);
         setModalDescription("All the fields are mandatory, Please fill the form with appropriate values!");
@@ -54,14 +52,26 @@ function Mint() {
         return false;
       }
 
-      if (key === "quantity" && !parseInt(value)) {
-        setModalHeading(ALERT);
-        setModalDescription("Quantity must be entered in number");
-        setModalButtonEnabled(true);
-        setIsModalOpen(true);
-        return false;
+      if (key === "quantity") {
+        if (!(value <= 100) || !(value > 0)) {
+          setModalHeading(ALERT);
+          setModalDescription(ATTRIBUTES_NUMERIC_VALUE_ERROR);
+          setModalButtonEnabled(true);
+          setIsModalOpen(true);
+          return false;
+        }
+      } else if (key != "name" && key != "description") {
+        if (!(value <= 10) || !(value > 0)) {
+          setModalHeading(ALERT);
+          setModalDescription(ATTRIBUTES_NUMERIC_VALUE_ERROR);
+          setModalButtonEnabled(true);
+          setIsModalOpen(true);
+          return false;
+        }
       }
+
     }
+
     return true;
   }
 
@@ -224,14 +234,13 @@ function Mint() {
         setImageName("");
         setnftInfo({
           name: "",
+          description: "",
           quantity: "",
-          confidence: "",
-          energy_level: "",
-          personality: "",
-          behavior: "",
-          intelligence: "",
-          popularity: "",
-          description: ""
+          rarity: "",
+          style: "",
+          beauty: "",
+          comedy: "",
+          action: ""
         });
 
       } else {
@@ -316,7 +325,7 @@ function Mint() {
         <div className="form-create-item">
           <div className="row">
             <div className="col-sm-12">
-              <h1 className="text-left sc-heading">Create NFT</h1>
+              <h1 className="text-left sc-heading main-heading">Create NFT</h1>
               <p className="text-left sc-heading">
                 Most popular nft market place for celebrities
               </p>
@@ -324,13 +333,13 @@ function Mint() {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div className="row form-background">
-              <div className="col-sm-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 form-background">
+              <div>
                 <label className="uploadFile cursor-pointer">
                   <span className="filename">
                     {
                       (imageName && imageName.length > 0) ? imageName :
-                        "Choose NFT Image"
+                        "Choose Image"
                     }
                   </span>
                   <input
@@ -345,91 +354,182 @@ function Mint() {
                   </span>
                 </label>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12 form-background input-group">
+              <div className="mt-5 mb-5">
                 <input
                   type="text"
-                  className="form-control item-1"
+                  className="item-1"
                   name="name"
                   value={nftInfo.name}
                   placeholder="NFT Name"
                   onChange={handleChange}
                 />
-                <input
-                  type="number"
-                  className="form-control item-2"
-                  placeholder="NFT Quantities"
-                  name="quantity"
-                  value={nftInfo.quantity}
-                  onChange={handleChange}
-                />
               </div>
-              <div className="col input-group">
-                <input
-                  type="text"
-                  className="form-control item-1"
-                  name="confidence"
-                  value={nftInfo.confidence}
-                  placeholder="Confidence"
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  className="form-control item-2"
-                  name="energy_level"
-                  value={nftInfo.energy_level}
-                  placeholder="Energy Level"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="col input-group">
-                <input
-                  type="text"
-                  className="form-control item-1"
-                  placeholder="Personality"
-                  name="personality"
-                  value={nftInfo.personality}
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  className="form-control item-2"
-                  placeholder="Behaviour"
-                  name="behavior"
-                  value={nftInfo.behavior}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="col input-group">
-                <input
-                  type="text"
-                  className="form-control item-1"
-                  placeholder="Intelligence"
-                  name="intelligence"
-                  value={nftInfo.intelligence}
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  className="form-control item-2"
-                  placeholder="Popularity"
-                  name="popularity"
-                  value={nftInfo.popularity}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="col "></div>
-              <textarea
-                className="form-control col-12 row-3 input-group text"
-                placeholder="NFT Description"
-                name="description"
-                value={nftInfo.description}
-                onChange={handleChange}
-              ></textarea>
             </div>
+
+            <textarea
+              className="form-control col-12 row-3 input-group text"
+              placeholder="NFT Description"
+              name="description"
+              value={nftInfo.description}
+              onChange={handleChange}
+            ></textarea>
+
+            <br />
+            <br />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
+
+              <div className="text-center">
+                <label htmlFor="">Quantity</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="quantity"
+                    value={nftInfo.quantity}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_quantity"
+                    value={100}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+              <div className="text-center">
+                <label htmlFor="">Rarity</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="rarity"
+                    value={nftInfo.rarity}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_rarity"
+                    value={10}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            <br />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
+              <div className="text-center">
+                <label htmlFor="">Style</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="style"
+                    value={nftInfo.style}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_style"
+                    value={10}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+              <div className="text-center">
+                <label htmlFor="">Beauty</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="beauty"
+                    value={nftInfo.beauty}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_beauty"
+                    value={10}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
+              <div className="text-center">
+                <label htmlFor="">Comedy</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="comedy"
+                    value={nftInfo.comedy}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_comedy"
+                    value={10}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+              <div className="text-center">
+                <label htmlFor="">Action</label>
+                <br />
+                <div className="mt-3">
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="action"
+                    value={nftInfo.action}
+                    placeholder="1"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="" className="text-[19px]"> of </label>
+                  <input
+                    type="number"
+                    className="form-control nft-input-rating"
+                    name="max_action"
+                    value={10}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="row">
               <div className="col-sm-12 text-center">
+                <br />
                 <button
                   name="submit"
                   type="submit"

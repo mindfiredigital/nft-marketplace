@@ -6,3 +6,4 @@ export const ALERT = "Alert";
 export const NATIVE_TOKEN = "MATIC";
 export const SUCCESSFUL_TRANSACTION = "Your transaction is successful. Please check";
 export const TRANSACTION_HASH = "The hash of your transaction is";
+export const ATTRIBUTES_NUMERIC_VALUE_ERROR = "Numeric values should be within maximum range provided!"; 

@@ -167,7 +167,7 @@ function Dashboard() {
                         className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded dashboard-sc-button"
                         onClick={() => openPopup(i)}
                       >
-                        Detail
+                        Details
                       </button>
                     </div>
                   </div>
@@ -201,7 +201,7 @@ function Dashboard() {
                         className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded dashboard-sc-button"
                         onClick={() => openPopup(i)}
                       >
-                        Detail
+                        Details
                       </button>
                     </div>
                   </div>

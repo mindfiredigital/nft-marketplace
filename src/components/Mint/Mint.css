@@ -1,7 +1,6 @@
 .form-create-item {
   background: var(--color-4);
   padding: 60px 70px;
-  margin-left: 20px;
   overflow: hidden;
 }
 
@@ -25,9 +24,14 @@
   font-weight: 900 !important;
 }
 
+.main-heading {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+}
+
 .uploadFile {
   /* position: relative; */
-  width: 100%;
+  width: 100% !important;
   height: 65px;
   line-height: 65px;
   border: 1px solid rgba(99, 69, 237, 0.12);
@@ -46,7 +50,6 @@
 }
 
 .item-1 {
-  margin-right: 20px;
   border: 1px solid rgba(99, 69, 237, 0.1);
   background: #5e5e74a1;
   font-size: 18px;
@@ -55,7 +58,41 @@
   height: 65px;
   padding: 0 35px;
   border-radius: 7px;
-  margin-bottom: 20px;
+}
+
+.nft-name {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  padding: 0 35px;
+  border-radius: 7px;
+}
+
+.nft-input-rating {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  border-radius: 7px;
+  width: 5rem;
+  text-align: center;
+}
+
+.nft-input-rating-range {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  border-radius: 7px;
+  width: 5rem;
+  text-align: center;
 }
 
 .item-2 {

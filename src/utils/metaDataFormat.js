@@ -8,27 +8,27 @@ export function mapformat(old_format) {
   new_format.description = old_format.description;
   new_format.attributes = [
     {
-      trait_type: "confidence",
+      trait_type: "quantity",
       value: "",
     },
     {
-      trait_type: "energy_level",
+      trait_type: "rarity",
       value: "",
     },
     {
-      trait_type: "personality",
+      trait_type: "style",
       value: "",
     },
     {
-      trait_type: "behavior",
+      trait_type: "beauty",
       value: "",
     },
     {
-      trait_type: "intelligence",
+      trait_type: "comedy",
       value: "",
     },
     {
-      trait_type: "popularity",
+      trait_type: "action",
       value: "",
     },
   ];

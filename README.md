@@ -48,7 +48,7 @@ S. No. | Smart Contract | Chain | Contract Address |
 
 ## Sample App
 
-<a href="https://647f1c2761a1cc15eed4457b--singular-semolina-0651bf.netlify.app/" target="_blank">https://647f1c2761a1cc15eed4457b--singular-semolina-0651bf.netlify.app/</a> 
+<a href="https://647f2b0196d3a422a9dc5ecb--deluxe-jelly-534fd5.netlify.app/" target="_blank">https://647f2b0196d3a422a9dc5ecb--deluxe-jelly-534fd5.netlify.app/</a> 
 
 
 ## Setup

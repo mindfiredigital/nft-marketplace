@@ -5,8 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { convertToEther, convertToWei, getAllUnsoldNfts, getWalletBalance } from "../../utils/wallet";
 import { getNFTDetailsFromURI } from "../../utils/metaDataFormat";
 import Detail from "../Detail/Detail";
-import { NATIVE_TOKEN, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
-import { MATIC_TX_EXPLORER_URL } from "../../utils/commonUtils";
+import { SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
+
 function Buy() {
 
   const [showDetail, setshowDetail] = useState(false);
@@ -17,7 +17,7 @@ function Buy() {
   const {
     web3, walletConnected, isChainSupported, setIsModalOpen, setModalHeading,
     nftContract, marketplaceContract, setModalDescription, setModalButtonEnabled,
-    setWalletEthBalance, walletEthBalance
+    setWalletEthBalance, walletEthBalance, chainConfig
   } = useContext(MyContext);
 
   const fetchAllNftsOnSale = async () => {
@@ -50,7 +50,7 @@ function Buy() {
       }
 
       setIsModalOpen(false);
-    }else{
+    } else {
       setItem([]);
     }
     setIsModalOpen(false);
@@ -86,7 +86,7 @@ function Buy() {
 
     if (!check.status) {
       setModalHeading("Buy Transaction Failed");
-      setModalDescription(`Transaction failed because your account doesn't have sufficient balance to pay ${nft_data.price} ${NATIVE_TOKEN} and gas fees!`);
+      setModalDescription(`Transaction failed because your account doesn't have sufficient balance to pay ${nft_data.price} ${chainConfig.currency} and gas fees!`);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
       return;
@@ -138,7 +138,7 @@ function Buy() {
           value: priceInWei
         })
         .on("transactionHash", (hash) => {
-          url = MATIC_TX_EXPLORER_URL + hash;
+          url = chainConfig.explorerUrl + hash;
           setModalDescription(`${TRANSACTION_HASH} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
         })
         .on("receipt", async () => {
@@ -174,7 +174,7 @@ function Buy() {
       setItem([]);
     }
 
-  }, [nftContract, marketplaceContract, walletConnected]);
+  }, [nftContract, marketplaceContract, walletConnected, chainConfig]);
 
   return (
     <div>
@@ -193,7 +193,7 @@ function Buy() {
                           {i.description}
                         </p>
                         <p className="text-[gold] font-extrabold text-base">
-                          Price: {i.price} {NATIVE_TOKEN}
+                          Price: {i.price} {chainConfig ? chainConfig.currency : ""}
                         </p>
                         <span className="icon">
                           <a

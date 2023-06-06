@@ -37,14 +37,18 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - Click on "Buy" button
 
 ## Smart Contract Details
-S. No. | Smart Contract | Mumbai Matic Address |
+S. No. | Smart Contract | Chain | Contract Address |
 --- | --- | --- |
-1 | Fandom NFT | <a href="https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3" target="_blank">https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3</a> |
-2 | NFT Marketplace | <a href="https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a" target="_blank">https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a</a> |
+1 | Fandom NFT | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3" target="_blank">https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3</a> |
+2 | NFT Marketplace | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a" target="_blank">https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a</a> |
+3 | Fandom NFT | Sepolia | <a href="https://sepolia.etherscan.io/address/0xbA6De6117C661D3BBa39c9E0Ee83763B80E9cEf4" target="_blank">https://sepolia.etherscan.io/address/0xbA6De6117C661D3BBa39c9E0Ee83763B80E9cEf4</a> |
+4 | NFT Marketplace | Sepolia | <a href="https://sepolia.etherscan.io/address/0xB22141236071EFf920f6b8bfC221C2C2AF776C92" target="_blank">https://sepolia.etherscan.io/address/0xB22141236071EFf920f6b8bfC221C2C2AF776C92</a> |
+5 | Fandom NFT | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B" target="_blank">https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B</a> |
+6 | NFT Marketplace | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2" target="_blank">https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2</a> |
 
 ## Sample App
 
-<a href="https://647dbce057e13a02b7b23317--lustrous-mochi-a4c749.netlify.app/" target="_blank">https://647dbce057e13a02b7b23317--lustrous-mochi-a4c749.netlify.app/</a> 
+<a href="https://647f1c2761a1cc15eed4457b--singular-semolina-0651bf.netlify.app/" target="_blank">https://647f1c2761a1cc15eed4457b--singular-semolina-0651bf.netlify.app/</a> 
 
 
 ## Setup

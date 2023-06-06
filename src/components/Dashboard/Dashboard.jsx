@@ -27,6 +27,7 @@ function Dashboard() {
     marketplaceContract,
     setModalDescription,
     setModalButtonEnabled,
+    chainConfig
   } = useContext(MyContext);
 
   const fetchAllNftsOfUser = async () => {
@@ -123,20 +124,20 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    if (nftContract && walletConnected) {
+    if (nftContract && walletConnected && chainConfig) {
       fetchAllNftsOfUser();
     } else {
       setItem([]);
     }
-  }, [nftContract, walletConnected]);
+  }, [nftContract, walletConnected, chainConfig]);
 
   useEffect(() => {
-    if (marketplaceContract && walletConnected) {
+    if (marketplaceContract && walletConnected && chainConfig) {
       fetchListedNftsOfUser();
     } else {
       setSellItem([]);
     }
-  }, [marketplaceContract, walletConnected]);
+  }, [marketplaceContract, walletConnected, chainConfig]);
 
   const openPopup = (i) => {
     setshowDetail(true);

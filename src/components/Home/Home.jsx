@@ -3,11 +3,11 @@ import { Button } from "@material-tailwind/react";
 import './Home.css';
 import React, { useContext } from "react";
 import {
-  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
-  connectToMetamaskAccount, getChainConnected, getWalletBalance
+  checkIsMetamaskPresent, connectToWeb3,
+  getChainConnected, getWalletBalance, connectToSpecificMetamaskNetwork, connectToMetamaskAccount
 } from '../../utils/wallet';
 import { MyContext } from "../App/App";
-import { supportedChains } from "../../utils/commonUtils";
+import { chainProperties, supportedChains } from "../../utils/commonUtils";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
 
 function Home() {
@@ -16,7 +16,8 @@ function Home() {
   const { setWeb3, isMetamaskPresent, setIsMetamaskPresent,
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled, setWalletEthBalance
+    setModalButtonEnabled, setWalletEthBalance,
+    setChainConfig, setNetworkSelected, networkList
   } = useContext(MyContext);
 
   /** Connect to metamask wallet and update the context states accordingly */
@@ -41,22 +42,24 @@ function Home() {
 
   /** Handles metamask connection */
   const connectToMetamask = async () => {
-    let wallet = checkIsMetamaskConnected();
+    const wallet = await connectToSpecificMetamaskNetwork(networkList[0].id);
     if (!wallet) {
-      wallet = await connectToMetamaskAccount();
-      if (!wallet) {
-        setWalletEthBalance("0");
-        setModalHeading(ALERT);
-        setModalDescription(USER_REQUEST_REJECT_ERROR);
-        setModalButtonEnabled(true);
-        setIsModalOpen(true);
-        return;
-      }
+      setWalletEthBalance("0");
+      setModalHeading(ALERT);
+      setModalDescription(USER_REQUEST_REJECT_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+      return;
     }
-    await checkChainConnected();
-    setWeb3(connectToWeb3(window.ethereum));
-    setWalletConnected(wallet);
-    setWalletEthBalance(await getWalletBalance(wallet));
+    const chainCheck = await checkChainConnected();
+    if (chainCheck) {
+      setNetworkSelected(networkList[0].name);
+      setWeb3(connectToWeb3(window.ethereum));
+      const wal = await connectToMetamaskAccount();
+      setWalletConnected(wal);
+      setWalletEthBalance(await getWalletBalance(wal));
+    }
+    return true;
   }
 
   /** To check metamask connected chain is supported by us or not */
@@ -69,8 +72,12 @@ function Home() {
       setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
+      setChainConfig(null);
+      return false;
     } else {
       setIsChainSupported(true);
+      setChainConfig(chainProperties[chain]);
+      return true;
     }
   }
 

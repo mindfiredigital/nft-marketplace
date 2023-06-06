@@ -19,6 +19,7 @@
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "semantic-ui-react": "^2.1.4",
     "tls": "^0.0.1",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4",

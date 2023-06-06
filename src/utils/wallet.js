@@ -11,6 +11,19 @@ export const connectToMetamaskAccount = async () => {
     }
 }
 
+export const connectToSpecificMetamaskNetwork = async (id) => {
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: id }]
+        });
+        return true;
+    } catch (error) {
+        console.log("Error in connecting with metamask: ", error);
+        return null;
+    }
+}
+
 export const checkIsMetamaskPresent = () => {
     return window.ethereum ? true : false;
 }

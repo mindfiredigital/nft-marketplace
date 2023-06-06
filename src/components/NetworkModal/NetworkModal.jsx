@@ -5,7 +5,7 @@ import { chainProperties } from "../../utils/commonUtils";
 
 const NetworkModal = ({ setIsNetworkModalOpen, data, setModalHeading,
     setModalDescription, setModalButtonEnabled, setIsModalOpen, setNetworkSelected,
-    setWalletEthBalance, setChainConfig, setWalletConnected, 
+    setWalletEthBalance, setChainConfig, setWalletConnected,
     setIsChainSupported, walletConnected, setWeb3 }) => {
 
     const chooseNetwork = async (e) => {
@@ -16,21 +16,29 @@ const NetworkModal = ({ setIsNetworkModalOpen, data, setModalHeading,
             if (!walletConnected) {
                 setWeb3(connectToWeb3(window.ethereum));
                 const wal = await connectToMetamaskAccount();
-                setWalletConnected(wal);
-                setWalletEthBalance(await getWalletBalance(wal));
-                setIsChainSupported(true);
+                if (!wal) {
+                    setError();
+                } else {
+                    setWalletConnected(wal);
+                    setWalletEthBalance(await getWalletBalance(wal));
+                    setIsChainSupported(true);
+                }
             }
         } else {
-            setWalletEthBalance("0");
-            setModalHeading(ALERT);
-            setModalDescription(USER_REQUEST_REJECT_ERROR);
-            setModalButtonEnabled(true);
-            setIsModalOpen(true);
-            setNetworkSelected("Select Network");
-            setChainConfig(null);
-            setWalletConnected(null);
+            setError();
         }
         setIsNetworkModalOpen(false);
+    }
+
+    const setError = () => {
+        setWalletEthBalance("0");
+        setModalHeading(ALERT);
+        setModalDescription(USER_REQUEST_REJECT_ERROR);
+        setModalButtonEnabled(true);
+        setIsModalOpen(true);
+        setNetworkSelected("Select Network");
+        setChainConfig(null);
+        setWalletConnected(null);
     }
 
     return (

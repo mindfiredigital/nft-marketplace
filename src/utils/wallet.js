@@ -19,6 +19,10 @@ export const connectToSpecificMetamaskNetwork = async (id) => {
         });
         return true;
     } catch (error) {
+        // already one request to connect is pending
+        if (error.code == -32002) {
+            return true;
+        }
         console.log("Error in connecting with metamask: ", error);
         return null;
     }

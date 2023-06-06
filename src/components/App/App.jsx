@@ -41,6 +41,7 @@ function App() {
                 setWalletConnected(null);
                 setWeb3(null);
                 setWalletEthBalance("0");
+                setNetworkSelected("Select Network");
                 setModalHeading(ALERT);
                 setModalDescription(METAMASK_DISCONNECTED_ERROR);
                 setModalButtonEnabled(true);

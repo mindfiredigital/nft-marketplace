@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./Mint.css";
 import { mapformat } from "../../utils/metaDataFormat";
-import { ALLOWED_IMAGE_FORMATS, MATIC_TX_EXPLORER_URL, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
+import { ALLOWED_IMAGE_FORMATS, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL } from "../../utils/commonUtils";
 import { MyContext } from "../App/App";
 import { ALERT, ATTRIBUTES_NUMERIC_VALUE_ERROR, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
 import { convertToEther, getWalletBalance } from "../../utils/wallet";
@@ -28,7 +28,7 @@ function Mint() {
   const {
     web3, walletConnected, isChainSupported, nftContract, walletEthBalance,
     setWalletEthBalance, setIsModalOpen, setModalHeading, setModalDescription,
-    setModalButtonEnabled
+    setModalButtonEnabled, chainConfig
   } = useContext(MyContext);
 
   // handle input change function
@@ -194,7 +194,7 @@ function Mint() {
     setIsModalOpen(true);
 
     // check user has enough balance to pay gas fee in matic
-    const check = await checkUserHasSufficientBalanceForTx(nftInfo.quantity, MATIC_TX_EXPLORER_URL);
+    const check = await checkUserHasSufficientBalanceForTx(nftInfo.quantity, chainConfig.explorerUrl);
 
     if (!check.status) {
       setModalHeading("Mint NFT Failed");
@@ -271,7 +271,7 @@ function Mint() {
           gasLimit: gas
         })
         .on("transactionHash", (hash) => {
-          url = MATIC_TX_EXPLORER_URL + hash;
+          url = chainConfig.explorerUrl + hash;
           setModalDescription(`${TRANSACTION_HASH} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
         })
         .on("receipt", async () => {

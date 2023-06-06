@@ -1,10 +1,9 @@
 import "./PriceModal.css";
 import { useContext, useState } from "react";
-import { MATIC_TX_EXPLORER_URL, REGEX_FOR_PRICE } from "../../utils/commonUtils";
+import { REGEX_FOR_PRICE } from "../../utils/commonUtils";
 import { MyContext } from "../App/App";
 import { convertToEther, convertToWei, getWalletBalance } from "../../utils/wallet";
-import { ALERT, NATIVE_TOKEN, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
-import { marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
+import { ALERT, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
 export default function PriceModal(props) {
 
     /** Stores new price of NFT to be sold */
@@ -13,7 +12,8 @@ export default function PriceModal(props) {
     /** Importing context API's states to use in the component*/
     const {
         web3, walletConnected, setIsModalOpen, setModalHeading, walletEthBalance, nftContract,
-        setWalletEthBalance, marketplaceContract, setModalDescription, setModalButtonEnabled
+        setWalletEthBalance, marketplaceContract, setModalDescription, setModalButtonEnabled,
+        chainConfig
     } = useContext(MyContext);
 
     const handleCancel = () => {
@@ -42,7 +42,7 @@ export default function PriceModal(props) {
             if (newPrice < Number(props.listPrice)) {
                 setIsModalOpen(true);
                 setModalHeading("Sell Transaction");
-                setModalDescription(`The selling price of NFT can't be less than listing price that is ${props.listPrice} ${NATIVE_TOKEN}. Please try with greater amount!`);
+                setModalDescription(`The selling price of NFT can't be less than listing price that is ${props.listPrice} ${chainConfig.currency}. Please try with greater amount!`);
                 setModalButtonEnabled(true);
                 return;
             }
@@ -102,7 +102,7 @@ export default function PriceModal(props) {
 
         try {
 
-            const gasLimit = await nftContract.methods.setApprovalForAll(marketplaceContractAddress, true)
+            const gasLimit = await nftContract.methods.setApprovalForAll(chainConfig.marketplaceAddress, true)
                 .estimateGas({ from: walletConnected });
 
             const bufferedGasLimit = Math.round(
@@ -139,7 +139,7 @@ export default function PriceModal(props) {
                     value: listingPriceInWei
                 })
                 .on("transactionHash", (hash) => {
-                    url = MATIC_TX_EXPLORER_URL + hash;
+                    url = chainConfig.explorerUrl + hash;
                     setModalDescription(`${TRANSACTION_HASH} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
                 })
                 .on("receipt", async () => {
@@ -168,7 +168,7 @@ export default function PriceModal(props) {
     const approvalTransaction = async (tokenId, priceInWei, amount) => {
 
         const check = await nftContract.methods
-            .isApprovedForAll(walletConnected, marketplaceContractAddress).call({
+            .isApprovedForAll(walletConnected, chainConfig.marketplaceAddress).call({
                 from: walletConnected
             });
 
@@ -191,13 +191,13 @@ export default function PriceModal(props) {
 
                 let url = "";
 
-                await await nftContract.methods.setApprovalForAll(marketplaceContractAddress, true)
+                await await nftContract.methods.setApprovalForAll(chainConfig.marketplaceAddress, true)
                     .send({
                         from: walletConnected,
                         gasLimit: check.gas
                     })
                     .on("transactionHash", (hash) => {
-                        url = MATIC_TX_EXPLORER_URL + hash;
+                        url = chainConfig.explorerUrl + hash;
                         setModalDescription(`${TRANSACTION_HASH} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
                     })
                     .on("receipt", async () => {
@@ -255,7 +255,7 @@ export default function PriceModal(props) {
                     <div className="mb-4 price-param text-center">
                         <br />
                         <span>
-                            NFT Price ( in {NATIVE_TOKEN} )
+                            NFT Price ( in {chainConfig ? chainConfig.currency : ""} )
                         </span>
                         <br />
                         <br />

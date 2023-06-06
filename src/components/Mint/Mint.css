@@ -199,12 +199,6 @@ textarea {
 
 }
 
-/* @media only screen and (max: ) {
-  .form-create-item {
-    padding: 20px;
-  }
-} */
-
 .create-item-container {
   background-color: #282c34;
   min-height: 100vh;
@@ -214,4 +208,14 @@ textarea {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }

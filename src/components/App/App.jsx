@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Modal from "../Modal/Modal";
-import { supportedChains } from "../../utils/commonUtils";
+import { chainProperties, supportedChains } from "../../utils/commonUtils";
 import { checkIsMetamaskConnected, connectToWeb3, connectToMetamaskAccount, getWalletBalance } from "../../utils/wallet";
 import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
+import NetworkModal from "../NetworkModal/NetworkModal";
 
 export const MyContext = createContext();
 
@@ -17,6 +18,9 @@ function App() {
     const [modalDescription, setModalDescription] = useState("");
     const [modalButtonEnabled, setModalButtonEnabled] = useState(false);
 
+    /** States related to modal popup box */
+    const [isNetworkModalOpen, setIsNetworkModalOpen] = useState(false);
+
     /** States for context API's */
     const [web3, setWeb3] = useState(null);
     const [isMetamaskPresent, setIsMetamaskPresent] = useState(false);
@@ -25,6 +29,9 @@ function App() {
     const [walletEthBalance, setWalletEthBalance] = useState("0");
     const [nftContract, setNftContract] = useState(null);
     const [marketplaceContract, setMarketplaceContract] = useState(null);
+    const [chainConfig, setChainConfig] = useState(null);
+    const [networkSelected, setNetworkSelected] = useState("Select Network");
+    const [networkList, setNetworkList] = useState([]);
 
     if (window.ethereum) {
 
@@ -53,6 +60,9 @@ function App() {
                 setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
                 setModalButtonEnabled(true);
                 setIsModalOpen(true);
+                setChainConfig(null);
+                setWalletConnected(null);
+                setNetworkSelected("Select Network");
             } else {
                 let wallet = checkIsMetamaskConnected();
                 if (!wallet) {
@@ -67,13 +77,20 @@ function App() {
                     }
                 }
                 setWeb3(connectToWeb3(window.ethereum));
+                setChainConfig(chainProperties[chain]);
                 setWalletConnected(wallet);
                 setIsChainSupported(true);
                 setWalletEthBalance(await getWalletBalance(wallet));
+                setNetworkSelected(chainProperties[chain].chain);
             }
         });
 
     }
+
+    useEffect(() => {
+        let networks = Object.entries(supportedChains).map(([k, v]) => ({ ["name"]: v, ["id"]: k }));
+        setNetworkList(networks);
+    }, []);
 
     return (
         <div>
@@ -87,7 +104,11 @@ function App() {
                 modalButtonEnabled, setModalButtonEnabled,
                 walletEthBalance, setWalletEthBalance,
                 nftContract, setNftContract,
-                marketplaceContract, setMarketplaceContract
+                marketplaceContract, setMarketplaceContract,
+                chainConfig, setChainConfig,
+                networkSelected, setNetworkSelected,
+                networkList, setNetworkList, isNetworkModalOpen,
+                setIsNetworkModalOpen
             }}>
                 <Header />
                 <div className="min-h-[calc(100vh-164px)] bg-[#282c34]">
@@ -102,6 +123,23 @@ function App() {
                     heading={modalHeading}
                     description={modalDescription}
                     isButtonEnabled={modalButtonEnabled}
+                />
+            }
+            {isNetworkModalOpen &&
+                <NetworkModal
+                    setIsNetworkModalOpen={setIsNetworkModalOpen}
+                    data={networkList}
+                    setIsModalOpen={setIsModalOpen}
+                    setModalHeading={setModalHeading}
+                    setModalDescription={setModalDescription}
+                    setModalButtonEnabled={setModalButtonEnabled}
+                    setNetworkSelected={setNetworkSelected}
+                    setWalletEthBalance={setWalletEthBalance}
+                    setChainConfig={setChainConfig}
+                    setWalletConnected={setWalletConnected}
+                    walletConnected={walletConnected}
+                    setWeb3={setWeb3}
+                    setIsChainSupported={setIsChainSupported}
                 />
             }
         </div>

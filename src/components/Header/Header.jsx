@@ -10,14 +10,14 @@ import './Header.css';
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import {
-  checkIsMetamaskConnected, checkIsMetamaskPresent, connectToWeb3,
-  connectToMetamaskAccount, getChainConnected, getWalletBalance
+  checkIsMetamaskPresent, connectToWeb3,
+  getChainConnected, getWalletBalance, connectToSpecificMetamaskNetwork, connectToMetamaskAccount
 } from "../../utils/wallet";
 import { MyContext } from "../App/App";
-import { supportedChains } from "../../utils/commonUtils";
-import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, NATIVE_TOKEN, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
-import { nftAbi, nftContractAddress } from "../../utils/abis/fandomNftAbi";
-import { marketplaceAbi, marketplaceContractAddress } from "../../utils/abis/marketplaceAbi";
+import { chainProperties, supportedChains } from "../../utils/commonUtils";
+import { ALERT, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_NOT_FOUND_ERROR, USER_REQUEST_REJECT_ERROR } from "../../utils/messageConstants";
+import { nftAbi } from "../../utils/abis/fandomNftAbi";
+import { marketplaceAbi } from "../../utils/abis/marketplaceAbi";
 
 export default function Header() {
 
@@ -26,7 +26,9 @@ export default function Header() {
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
     setModalButtonEnabled, walletEthBalance, setWalletEthBalance,
-    setMarketplaceContract, setNftContract
+    setMarketplaceContract, setNftContract, isChainSupported,
+    chainConfig, setChainConfig, setIsNetworkModalOpen,
+    networkSelected, setNetworkSelected, networkList
   } = useContext(MyContext);
 
   /** States to open and close navbar in small devices */
@@ -54,22 +56,24 @@ export default function Header() {
 
   /** Handles metamask connection */
   const connectToMetamask = async () => {
-    let wallet = checkIsMetamaskConnected();
+    const wallet = await connectToSpecificMetamaskNetwork(networkList[0].id);
     if (!wallet) {
-      wallet = await connectToMetamaskAccount();
-      if (!wallet) {
-        setWalletEthBalance("0");
-        setModalHeading(ALERT);
-        setModalDescription(USER_REQUEST_REJECT_ERROR);
-        setModalButtonEnabled(true);
-        setIsModalOpen(true);
-        return;
-      }
+      setWalletEthBalance("0");
+      setModalHeading(ALERT);
+      setModalDescription(USER_REQUEST_REJECT_ERROR);
+      setModalButtonEnabled(true);
+      setIsModalOpen(true);
+      return false;
     }
-    await checkChainConnected();
-    setWeb3(connectToWeb3(window.ethereum));
-    setWalletConnected(wallet);
-    setWalletEthBalance(await getWalletBalance(wallet));
+    const chainCheck = await checkChainConnected();
+    if (chainCheck) {
+      setNetworkSelected(networkList[0].name);
+      setWeb3(connectToWeb3(window.ethereum));
+      const wal = await connectToMetamaskAccount();
+      setWalletConnected(wal);
+      setWalletEthBalance(await getWalletBalance(wal));
+    }
+    return true;
   }
 
   /** To check metamask connected chain is supported by us or not */
@@ -82,17 +86,21 @@ export default function Header() {
       setModalDescription(CHAIN_NOT_SUPPORTED_ERROR);
       setModalButtonEnabled(true);
       setIsModalOpen(true);
+      setChainConfig(null);
+      return false;
     } else {
       setIsChainSupported(true);
+      setChainConfig(chainProperties[chain]);
+      return true;
     }
   }
 
   useEffect(() => {
-    if (web3) {
-      setNftContract(new web3.eth.Contract(nftAbi, nftContractAddress));
-      setMarketplaceContract(new web3.eth.Contract(marketplaceAbi, marketplaceContractAddress));
+    if (web3 && chainConfig) {
+      setNftContract(new web3.eth.Contract(nftAbi, chainConfig.nftAddress));
+      setMarketplaceContract(new web3.eth.Contract(marketplaceAbi, chainConfig.marketplaceAddress));
     }
-  }, [web3, setNftContract, setMarketplaceContract]);
+  }, [web3, setNftContract, setMarketplaceContract, chainConfig]);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -101,7 +109,6 @@ export default function Header() {
     );
   }, []);
 
-  // Later this should be optimized in a for loop
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -167,6 +174,10 @@ export default function Header() {
     </ul>
   );
 
+  const selectNetwork = async () => {
+    setIsNetworkModalOpen(true);
+  }
+
   return (
     <>
       <Navbar className="sticky bg-black text-white inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
@@ -176,17 +187,28 @@ export default function Header() {
           </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            {walletConnected ?
+
+            <Button
+              variant="gradient"
+              size="sm"
+              className="connect-wallet-btn
+                hidden lg:inline-block hover:text-black focus:text-black active:text-black"
+              onClick={selectNetwork}
+            >
+              {networkSelected}
+            </Button>
+
+            {(walletConnected && isChainSupported) ?
               <Button
                 variant="gradient"
                 size="sm"
                 className="connect-wallet-btn
                           hidden lg:inline-block"
               >
-                <span>Balance: {
+                <span>Bal: {
                   !!walletEthBalance ? walletEthBalance.substring(0, 6) :
                     walletEthBalance
-                } {NATIVE_TOKEN}</span>
+                } {chainConfig ? chainConfig.currency : ""}</span>
               </Button> : <></>
             }
             <Button
@@ -246,14 +268,25 @@ export default function Header() {
         </div>
         <MobileNav open={openNav}>
           {navList}
-          {walletConnected ?
+
+          <Button variant="gradient" size="sm" fullWidth
+            className="connect-wallet-btn
+            mb-2 hover:text-black focus:text-black active:text-black"
+            onClick={selectNetwork}
+          >
+            {
+              networkSelected
+            }
+          </Button>
+
+          {(walletConnected && isChainSupported) ?
             <Button variant="gradient" size="sm" fullWidth
               className="connect-wallet-btn
             mb-2">
-              <span>Balance: {
+              <span>Bal: {
                 !!walletEthBalance ? walletEthBalance.substring(0, 6) :
                   walletEthBalance
-              } {NATIVE_TOKEN}</span>
+              } {chainConfig ? chainConfig.currency : ""}</span>
             </Button> : <></>
           }
           <Button variant="gradient" size="sm" fullWidth

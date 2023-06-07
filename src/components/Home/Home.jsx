@@ -85,7 +85,7 @@ function Home() {
     <div className="Home h-screen relative">
       <div className="grid md:grid-cols-2 gap-3 items-center p-8">
         <div>
-          <h1 className="font-bold text-4xl md:text-6xl">Discover and collect your favourite digital NTFs</h1>
+          <h1 className="font-bold text-4xl md:text-6xl">Discover and collect your favourite digital NFTs</h1>
           <br />
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn md:inline

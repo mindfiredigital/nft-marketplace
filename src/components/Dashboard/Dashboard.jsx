@@ -148,14 +148,11 @@ function Dashboard() {
     <div className="dashboard-create-item-containers">
       {item.length > 0 && isChainSupported && walletConnected && (
         <div className="w-full">
-          <div className="dashboard-h">
-            <h3>My Collection</h3>
-          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-12">
             {item.length > 0 &&
               item.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card">
+                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card" key={i.nftId}>
                     <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
@@ -179,21 +176,18 @@ function Dashboard() {
       )}
       {sellItem.length > 0 && isChainSupported && walletConnected && (
         <div className="w-full">
-          <div className="dashboard-h">
-            <h3>My NFT's on Sale</h3>
-          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-12">
             {sellItem.length > 0 &&
               sellItem.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card">
+                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card" key={i.nftId}>
                     <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
                       <p className="text-white-700 text-base">
                         {i.description}
                       </p>
-                      <p className="text-white-700 text-base">
+                      <p className="text-white-700 text-base text-[gold]">
                         Price: {i.price} MATIC
                       </p>
                     </div>

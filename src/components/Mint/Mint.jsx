@@ -8,6 +8,7 @@ import { ALLOWED_IMAGE_FORMATS, PINATA_FILE_UPLOAD_URL, PINATA_JSON_UPLOAD_URL }
 import { MyContext } from "../App/App";
 import { ALERT, ATTRIBUTES_NUMERIC_VALUE_ERROR, CHAIN_NOT_SUPPORTED_ERROR, METAMASK_DISCONNECTED_ERROR, SUCCESSFUL_TRANSACTION, TRANSACTION_HASH } from "../../utils/messageConstants";
 import { convertToEther, getWalletBalance } from "../../utils/wallet";
+import { useNavigate } from "react-router-dom";
 
 function Mint() {
 
@@ -30,6 +31,8 @@ function Mint() {
     setWalletEthBalance, setIsModalOpen, setModalHeading, setModalDescription,
     setModalButtonEnabled, chainConfig
   } = useContext(MyContext);
+
+  const navigate = useNavigate();
 
   // handle input change function
   const handleChange = (e) => {
@@ -278,6 +281,8 @@ function Mint() {
           setModalDescription(`${SUCCESSFUL_TRANSACTION} <a class="text-indigo-500" target="_blank" href="${url}">${url}</a>`);
           setWalletEthBalance(await getWalletBalance(walletConnected));
           setModalButtonEnabled(true);
+          setIsModalOpen(false);
+          navigate('/dashboard')
         })
         .on("error", async (error) => {
           setModalHeading("Minting NFT Failed");

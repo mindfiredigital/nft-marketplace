@@ -42,6 +42,17 @@ export default function Detail(props) {
                 </div>
               );
             })}
+            <div className="mb-4 param">
+              <strong className="param">Metadata URL : </strong>
+              <a
+                className="break-words text-[#0000EE] underline"
+                href={metadata.uri}
+                target="_blank"
+                rel="noreferrer"
+                dangerouslySetInnerHTML={{ __html: metadata.uri }}
+              >
+              </a>
+            </div>
             <div className="flex justify-end">
               <button
                 className="bg-green-600 hover:bg-green-800 text-white  py-2 px-4 rounded button"

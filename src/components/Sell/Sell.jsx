@@ -99,7 +99,7 @@ function Sell() {
             <div className="row">
               <div className="col-sm-12">
                 <h1 className="text-lg font-black text-center">
-                  Put your artistic NFT's on sale just at a fees of
+                  Put your artistic NFTs on sale just for a fee of
                   <span className="text-[gold] ml-1.5">{listingPrice} {chainConfig ? chainConfig.currency : ""}</span>
                 </h1>
               </div>

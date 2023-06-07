@@ -44,6 +44,7 @@ function Buy() {
             }
           }
           setItem(itemList);
+          console.log("item list: ", itemList);
         }
       } else {
         setItem([]);

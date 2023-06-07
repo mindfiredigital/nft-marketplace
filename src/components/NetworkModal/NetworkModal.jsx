@@ -58,7 +58,9 @@ const NetworkModal = ({ setIsNetworkModalOpen, data, setModalHeading,
                         {
                             data.length > 0 && data.map((item) => {
                                 return (
-                                    <div className="network-name" onClick={() => chooseNetwork(item)}>
+                                    <div className="network-name"
+                                        key={item.id}
+                                        onClick={() => chooseNetwork(item)}>
                                         {item.name}
                                     </div>
                                 )

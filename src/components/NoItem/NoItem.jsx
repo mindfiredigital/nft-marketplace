@@ -3,7 +3,7 @@ import image from "../../assets/k.jpg";
 export default function NoItem(props) {
   return (
     <div>
-      <div className="absolute inset-0 flex justify-center items-center">
+      <div className="absolute inset-0 flex justify-center items-center h-[39rem]">
         <img
           className="w-full h-[85%] object-cover"
           src={image}

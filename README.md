@@ -48,15 +48,20 @@ S. No. | Smart Contract | Chain | Contract Address |
 
 ## Sample App
 
-<a href="https://64807f3f729e3f158934407a--scintillating-kelpie-36bfeb.netlify.app/" target="_blank">https://64807f3f729e3f158934407a--scintillating-kelpie-36bfeb.netlify.app/</a> 
+<a href="https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/" target="_blank">https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/</a> 
 
-
-## Setup
+## Local Setup
 
 - Clone the repo:- `git clone https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend.git`
 - Create a .env file and take reference from .env.sample file to fill it
 - Install NPM packages `npm install`
 - Run to start your project  `npm start`
+
+## Docker Setup
+
+- Clone the repo:- `git clone https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend.git`
+- Create a .env file and take reference from .env.sample file to fill it
+- Run to start your project `sudo docker-compose -f docker-compose.dev.yml up`
 
 
 

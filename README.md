@@ -61,7 +61,7 @@ S. No. | Smart Contract | Chain | Contract Address |
 
 - Clone the repo:- `git clone https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend.git`
 - Create a .env file and take reference from .env.sample file to fill it
-- Run to start your project `sudo docker-compose -f docker-compose.dev.yml up`
+- Run to start your project:- `sudo docker-compose -f docker-compose.dev.yml up`
 
 
 

@@ -10,4 +10,6 @@ services:
     volumes:
      - ./src:/app/src
     ports:
-      - 3000:3000
+      - "3000:3000"
+    stdin_open: true
+    tty: true

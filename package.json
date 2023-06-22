@@ -30,8 +30,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "dev": "docker-compose -f docker-compose.dev.yml up",
-    "prod": "docker-compose -f docker-compose.prod.yml up"
+    "dev": "docker-compose -f docker-compose.dev.yaml up",
+    "prod": "docker-compose -f docker-compose.prod.yaml up"
   },
   "eslintConfig": {
     "extends": [

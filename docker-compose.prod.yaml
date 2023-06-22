@@ -7,3 +7,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    stdin_open: true
+    tty: true
+      

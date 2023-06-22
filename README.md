@@ -50,7 +50,7 @@ S. No. | Smart Contract | Chain | Contract Address |
 
 <a href="https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/" target="_blank">https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/</a> 
 
-## Local Setup
+## Setup
 
 - Clone the repo:- `git clone https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend.git`
 - Create a .env file and take reference from .env.sample file to fill it

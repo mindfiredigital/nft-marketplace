@@ -36,6 +36,7 @@ export default function Header() {
 
   /** Connect to metamask wallet and update the context states accordingly */
   const connectWallet = async () => {
+    setOpenNav(false);
     if (!walletConnected) {
       if (!isMetamaskPresent) {
         if (checkIsMetamaskPresent()) {
@@ -117,7 +118,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/" className="flex items-center text-base hover:text-[#ee82ee]">
+        <Link onClick={() => setOpenNav(false)} to="/" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
             Home
           </b>
@@ -129,7 +130,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/dashboard" className="flex items-center text-base hover:text-[#ee82ee]">
+        <Link onClick={() => setOpenNav(false)} to="/dashboard" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
           My Collection
           </b>
@@ -141,7 +142,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/mint" className="flex items-center text-base hover:text-[#ee82ee]">
+        <Link onClick={() => setOpenNav(false)} to="/mint" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
             Mint
           </b>
@@ -153,7 +154,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/buy" className="flex items-center text-base hover:text-[#ee82ee]">
+        <Link onClick={() => setOpenNav(false)} to="/buy" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
             Buy
           </b>
@@ -165,7 +166,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/sell" className="flex items-center text-base hover:text-[#ee82ee]">
+        <Link onClick={() => setOpenNav(false)} to="/sell" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
             Sell
           </b>
@@ -175,6 +176,7 @@ export default function Header() {
   );
 
   const selectNetwork = async () => {
+    setOpenNav(false);
     setIsNetworkModalOpen(true);
   }
 
@@ -182,7 +184,7 @@ export default function Header() {
     <>
       <Navbar className="sticky bg-black text-white inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <Link to="/">
+          <Link onClick={() => setOpenNav(false)} to="/">
             <img className="h-12 cursor-pointer" src={logo} alt="logo" />
           </Link>
           <div className="flex items-center gap-4">

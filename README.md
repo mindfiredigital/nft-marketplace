@@ -36,6 +36,10 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - You can see the list of NFT available for sell
 - Click on "Buy" button
 
+## System Diagram
+
+![System Diagram](./public/system-diagram.png)
+
 ## Smart Contract Details
 S. No. | Smart Contract | Chain | Contract Address |
 --- | --- | --- | --- |

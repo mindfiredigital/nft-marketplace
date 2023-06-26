@@ -17,7 +17,7 @@ function Home() {
     walletConnected, setWalletConnected, setIsChainSupported,
     setIsModalOpen, setModalHeading, setModalDescription,
     setModalButtonEnabled, setWalletEthBalance,
-    setChainConfig, setNetworkSelected, networkList
+    setChainConfig, setNetworkSelected, networkList, setIsNetworkModalOpen
   } = useContext(MyContext);
 
   /** Connect to metamask wallet and update the context states accordingly */
@@ -81,6 +81,10 @@ function Home() {
     }
   }
 
+  const selectNetwork = async () => {
+    setIsNetworkModalOpen(true);
+  }
+
   return (
     <div className="Home h-screen relative">
       <div className="grid md:grid-cols-2 gap-3 items-center p-8">
@@ -90,7 +94,7 @@ function Home() {
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn md:inline
             mb-2 hover:text-black focus:text-black active:text-black"
-            onClick={connectWallet}
+            onClick={selectNetwork}
           >
             {
               walletConnected && walletConnected.length ?

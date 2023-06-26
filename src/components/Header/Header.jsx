@@ -132,7 +132,7 @@ export default function Header() {
       >
         <Link onClick={() => setOpenNav(false)} to="/dashboard" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
-          My Collection
+            My Collection
           </b>
         </Link>
       </Typography>
@@ -190,15 +190,14 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
 
-            <Button
+            {networkSelected && <Button
               variant="gradient"
               size="sm"
               className="connect-wallet-btn
                 hidden lg:inline-block hover:text-black focus:text-black active:text-black"
-              onClick={selectNetwork}
             >
               {networkSelected}
-            </Button>
+            </Button>}
 
             {(walletConnected && isChainSupported) ?
               <Button
@@ -218,7 +217,7 @@ export default function Header() {
               size="sm"
               className="connect-wallet-btn
                 hidden lg:inline-block hover:text-black focus:text-black active:text-black"
-              onClick={connectWallet}
+              onClick={selectNetwork}
             >
               {
                 walletConnected && walletConnected.length ?
@@ -271,15 +270,15 @@ export default function Header() {
         <MobileNav open={openNav}>
           {navList}
 
-          <Button variant="gradient" size="sm" fullWidth
+          {networkSelected && <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn
             mb-2 hover:text-black focus:text-black active:text-black"
-            onClick={selectNetwork}
           >
             {
               networkSelected
             }
           </Button>
+          }
 
           {(walletConnected && isChainSupported) ?
             <Button variant="gradient" size="sm" fullWidth
@@ -294,7 +293,7 @@ export default function Header() {
           <Button variant="gradient" size="sm" fullWidth
             className="connect-wallet-btn
             mb-2 hover:text-black focus:text-black active:text-black"
-            onClick={connectWallet}
+            onClick={selectNetwork}
           >
             {
               walletConnected && walletConnected.length ?

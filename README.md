@@ -1,6 +1,6 @@
 # Fandom-NFT-Marketplace-Frontend
 
-Fandom is a platform for fans to connect with their favorite celebrities and collect exclusive digital memorabilia.  This is a platform for creators, collectors, and enthusiasts to buy, sell, and discover unique and valuable digital collectibles known as Non-Fungible Tokens (NFTs).
+Fandom is a multi-chain platform for fans to connect with their favorite celebrities and collect exclusive digital memorabilia.  This is a multi-chain platform for creators, collectors, and enthusiasts to buy, sell, and discover unique and valuable digital collectibles known as Non-Fungible Tokens (NFTs).
 Fans can discover, collect, and engage with exclusive NFTs from their most cherished celebrities.
 
 ## Features
@@ -12,7 +12,7 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - Sell your own NFTs to interested buyers.
 - Detailed NFT profiles with descriptions, images, and transaction history.
 
-## Mint NFT
+#### Mint NFT
 
 - Connect your Metamask wallet
 - Navigate to "Mint" section
@@ -20,7 +20,7 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - Fill NFt attribute details
 - Click on "Mint NFT" button
 
-## Sell NFT
+#### Sell NFT
 
 - Connect your Metamask wallet
 - Navigate to "Sell" section
@@ -29,7 +29,7 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - Put the price of the NFT
 - Click on "Confirm"
 
-## Buy NFT
+#### Buy NFT
 
 - Connect your Metamask wallet
 - Navigate to "Buy" section
@@ -38,7 +38,19 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 
 ## System Diagram
 
-![System Diagram](./public/system-diagram.png)
+![System Diagram](./docs/system-diagram.png)
+
+## Sequence diagram to mint NFT
+
+![Mint Sequence Diagram](./docs/mint.png)
+
+## Sequence diagram to sell NFT
+
+![Sell Sequence Diagram](./docs/sell.png)
+
+## Sequence diagram to buy NFT
+
+![Buy Sequence Diagram](./docs/buy.png)
 
 ## Smart Contract Details
 S. No. | Smart Contract | Chain | Contract Address |
@@ -50,9 +62,9 @@ S. No. | Smart Contract | Chain | Contract Address |
 5 | Fandom NFT | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B" target="_blank">https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B</a> |
 6 | NFT Marketplace | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2" target="_blank">https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2</a> |
 
-## Sample App
+## Demo
 
-<a href="https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/" target="_blank">https://6494280b02ef9d1438be9c5a--starlit-selkie-7387de.netlify.app/</a> 
+<a href="https://64996021df9c3f1f20a94473--super-nasturtium-36743b.netlify.app/" target="_blank">https://64996021df9c3f1f20a94473--super-nasturtium-36743b.netlify.app/</a> 
 
 ## Setup
 
@@ -60,3 +72,4 @@ S. No. | Smart Contract | Chain | Contract Address |
 - Create a .env file and take reference from .env.sample file to fill it
 - Install NPM packages `npm install`
 - Run to start your project  `npm start`
+- Open this url on browser `http://localhost:3000/`

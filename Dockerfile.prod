@@ -1,5 +1,7 @@
+# Fetching the latest node image on alpine linux
 FROM node:17-alpine as builder
 
+# Declaring env
 ENV NODE_ENV production
 
 # Add a work directory

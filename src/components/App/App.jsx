@@ -30,7 +30,7 @@ function App() {
     const [nftContract, setNftContract] = useState(null);
     const [marketplaceContract, setMarketplaceContract] = useState(null);
     const [chainConfig, setChainConfig] = useState(null);
-    const [networkSelected, setNetworkSelected] = useState("Select Network");
+    const [networkSelected, setNetworkSelected] = useState(null);
     const [networkList, setNetworkList] = useState([]);
 
     if (window.ethereum) {
@@ -41,7 +41,7 @@ function App() {
                 setWalletConnected(null);
                 setWeb3(null);
                 setWalletEthBalance("0");
-                setNetworkSelected("Select Network");
+                setNetworkSelected(null);
                 setModalHeading(ALERT);
                 setModalDescription(METAMASK_DISCONNECTED_ERROR);
                 setModalButtonEnabled(true);
@@ -63,7 +63,7 @@ function App() {
                 setIsModalOpen(true);
                 setChainConfig(null);
                 setWalletConnected(null);
-                setNetworkSelected("Select Network");
+                setNetworkSelected(null);
             } else {
                 let wallet = checkIsMetamaskConnected();
                 if (!wallet) {

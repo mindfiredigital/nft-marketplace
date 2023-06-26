@@ -1,0 +1,120 @@
+.network-darkBG {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.network-centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.network-modal {
+    width: 23rem;
+    height: 16rem;
+    background: white;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.network-modalHeader {
+    height: 50px;
+    background: white;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.network-heading {
+    margin: 0;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: 900;
+    font-size: 22px;
+    text-align: center;
+}
+
+.network-modalContent {
+    padding: 10px;
+    font-size: 16px;
+    color: #2c3e50;
+    text-align: center;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    /* top: 50%; */
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: -webkit-center;
+}
+
+.network-closeBtn {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+    position: absolute;
+    right: 9px;
+    top: 9px;
+    align-self: flex-end;
+}
+
+.network-deleteBtn {
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+    background: #50C878;
+    transition: all 0.25s ease;
+}
+
+.network-deleteBtn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    transform: translateY(-5px);
+    background: #50C878;
+}
+
+.network-cancelBtn {
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #2c3e50;
+    background: #fcfcfc;
+    transition: all 0.25s ease;
+}
+
+
+.network-name {
+    width: fit-content;
+    border-radius: 7px;
+    color: white;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background: linear-gradient(130.35deg, #6345ED 17.35%, #DC39FC 78.23%);
+    border-radius: 19px 19px 19px 19px;
+    font-weight: 900;
+    padding: 10px;
+}

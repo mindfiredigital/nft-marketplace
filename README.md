@@ -38,7 +38,7 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 
 ## System Diagram
 
-![System Diagram](https://gitlab.mindfire.co.in/bhupeshd/fandom-nft-marketplace-frontend/-/blob/bhupesh/public/system-diagram.png?raw=true "System Diagram")
+![System Diagram](./public/system-diagram.png)
 
 ## Smart Contract Details
 S. No. | Smart Contract | Chain | Contract Address |

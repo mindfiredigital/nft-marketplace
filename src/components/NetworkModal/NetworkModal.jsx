@@ -36,7 +36,7 @@ const NetworkModal = ({ setIsNetworkModalOpen, data, setModalHeading,
         setModalDescription(USER_REQUEST_REJECT_ERROR);
         setModalButtonEnabled(true);
         setIsModalOpen(true);
-        setNetworkSelected("Select Network");
+        setNetworkSelected(null);
         setChainConfig(null);
         setWalletConnected(null);
     }
@@ -47,7 +47,7 @@ const NetworkModal = ({ setIsNetworkModalOpen, data, setModalHeading,
             <div className="network-centered">
                 <div className="network-modal">
                     <div className="network-modalHeader">
-                        <h3 className="network-heading">Choose Network</h3>
+                        <h3 className="network-heading">Please select a network</h3>
                     </div>
                     <button className="network-closeBtn" onClick={() => setIsNetworkModalOpen(false)}>
                         X

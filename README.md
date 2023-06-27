@@ -12,29 +12,29 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 - Sell your own NFTs to interested buyers.
 - Detailed NFT profiles with descriptions, images, and transaction history.
 
-#### Mint NFT
+  #### Mint NFT
 
-- Connect your Metamask wallet
-- Navigate to "Mint" section
-- Upload the image
-- Fill NFt attribute details
-- Click on "Mint NFT" button
+  - Connect your Metamask wallet
+  - Navigate to "Mint" section
+  - Upload the image
+  - Fill NFt attribute details
+  - Click on "Mint NFT" button
 
-#### Sell NFT
+  #### Sell NFT
 
-- Connect your Metamask wallet
-- Navigate to "Sell" section
-- You can see the list of NFT you have
-- Click on "Sell" button
-- Put the price of the NFT
-- Click on "Confirm"
+  - Connect your Metamask wallet
+  - Navigate to "Sell" section
+  - You can see the list of NFT you have
+  - Click on "Sell" button
+  - Put the price of the NFT
+  - Click on "Confirm"
 
-#### Buy NFT
+  #### Buy NFT
 
-- Connect your Metamask wallet
-- Navigate to "Buy" section
-- You can see the list of NFT available for sell
-- Click on "Buy" button
+  - Connect your Metamask wallet
+  - Navigate to "Buy" section
+  - You can see the list of NFT available for sell
+  - Click on "Buy" button
 
 ## System Diagram
 

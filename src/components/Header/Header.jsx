@@ -120,7 +120,7 @@ export default function Header() {
       >
         <Link onClick={() => setOpenNav(false)} to="/" className="flex items-center text-base hover:text-[#ee82ee]">
           <b>
-            Home
+            Dashboard
           </b>
         </Link>
       </Typography>

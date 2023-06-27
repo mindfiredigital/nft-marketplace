@@ -14,20 +14,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 18.x
-        cache: 'npm'
-        cache-dependency-path: package-lock.json
-    - name: Install dependencies
-      run: npm install 
-    - name: Build file
-      run: npm run build
-      
-
-    // deploy the application to netlify
-    - name: Deploy production to Netlify
-      uses: South-Paw/action-netlify-deploy@v1.2.0
+    # Run npm install and build on our code
+    - run: npm install
+    - run: npm run build --if-present
+    # Deploy to Netlify using our dev secrets
+    - name: Deploy to netlify
+      uses: netlify/actions/cli@master
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-        build-dir: './build'
-        comment-on-commit: true
+        args: deploy --dir=build --prod
+        secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'

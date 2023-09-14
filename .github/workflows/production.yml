@@ -1,25 +1,63 @@
-name: Deploy prod
+# name: Deploy prod
 
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - hedera-testnet
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#       - name: Install Netlify CLI
+#         run: npm install -g netlify-cli
+#       - name: Install deps
+#         run: npm install
+#       - name: Deploy
+#         run: npm run deploy:prod
+#         env:
+#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+# Name of workflow
+name: Development workflow
+
+# When workflow is triggered
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - hedera-testnet
 
+# Jobs to carry out
 jobs:
   deploy:
+    # Operating system to run job on
     runs-on: ubuntu-latest
+
+    # Steps in job
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      # Get code from repo
+      - name: Checkout code
+        uses: actions/checkout@v1
+      # Install NodeJS
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
         with:
-          node-version: 18
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-      - name: Install deps
-        run: npm install
-      - name: Deploy
-        run: npm run deploy:prod
+          node-version: 12.x
+      # Run npm install and build on our code
+      - run: npm install
+      - run: npm run build --if-present
+      # Deploy to Netlify using our dev secrets
+      - name: Deploy to netlify
+        uses: netlify/actions/cli@master
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        with:
+          args: deploy --dir=build --prod
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'

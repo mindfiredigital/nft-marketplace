@@ -18,7 +18,7 @@ function Sell() {
   const {
     walletConnected, isChainSupported, setIsModalOpen, setModalHeading,
     nftContract, marketplaceContract, setModalDescription, setModalButtonEnabled,
-    chainConfig
+    chainConfig, nativeDecimal
   } = useContext(MyContext);
 
   const fetchAllNftsOfUser = async () => {
@@ -56,7 +56,7 @@ function Sell() {
   }
 
   const fetchListingPriceAndSet = async () => {
-    const price = await getListingPrice(marketplaceContract)
+    const price = await getListingPrice(marketplaceContract, nativeDecimal)
     if (price) {
       setListingPrice(price);
     } else {

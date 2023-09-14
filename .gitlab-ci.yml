@@ -1,0 +1,9 @@
+stages:
+  - build
+
+build project:
+  stage: build
+  image: node:18.12.1
+  script:
+    - npm  install
+    - npm build

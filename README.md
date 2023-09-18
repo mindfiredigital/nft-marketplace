@@ -55,12 +55,12 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 ## Smart Contract Details
 S. No. | Smart Contract | Chain | Contract Address |
 --- | --- | --- | --- |
-1 | Fandom NFT | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3" target="_blank">https://mumbai.polygonscan.com/address/0x2D0426A1B870F1f72A321F529E1154CE78c6f4B3</a> |
-2 | NFT Marketplace | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a" target="_blank">https://mumbai.polygonscan.com/address/0xF0dF57b57B2B9F911e2d4e16F842874cF390847a</a> |
-3 | Fandom NFT | Sepolia | <a href="https://sepolia.etherscan.io/address/0xbA6De6117C661D3BBa39c9E0Ee83763B80E9cEf4" target="_blank">https://sepolia.etherscan.io/address/0xbA6De6117C661D3BBa39c9E0Ee83763B80E9cEf4</a> |
-4 | NFT Marketplace | Sepolia | <a href="https://sepolia.etherscan.io/address/0xB22141236071EFf920f6b8bfC221C2C2AF776C92" target="_blank">https://sepolia.etherscan.io/address/0xB22141236071EFf920f6b8bfC221C2C2AF776C92</a> |
-5 | Fandom NFT | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B" target="_blank">https://testnet.snowtrace.io/address/0xFb85190704f0ca44F0a5f447EFF6cba49AB23B2B</a> |
-6 | NFT Marketplace | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2" target="_blank">https://testnet.snowtrace.io/address/0xC0a57943372B34D10e09AA7E539Ee3BA5d7BD6C2</a> |
+1 | Fandom NFT | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0x7AA0768e2f046a351b24AC00CE43CA8d2BCbc968" target="_blank">https://mumbai.polygonscan.com/address/0x7AA0768e2f046a351b24AC00CE43CA8d2BCbc968</a> |
+2 | NFT Marketplace | Mumbai Matic | <a href="https://mumbai.polygonscan.com/address/0xa1AB3cE05b0Ae95D8e5e7CB09Df315A3d4820d13" target="_blank">https://mumbai.polygonscan.com/address/0xa1AB3cE05b0Ae95D8e5e7CB09Df315A3d4820d13</a> |
+3 | Fandom NFT | Sepolia | <a href="https://sepolia.etherscan.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4" target="_blank">https://sepolia.etherscan.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4</a> |
+4 | NFT Marketplace | Sepolia | <a href="https://sepolia.etherscan.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3" target="_blank">https://sepolia.etherscan.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3</a> |
+5 | Fandom NFT | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4" target="_blank">https://testnet.snowtrace.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4</a> |
+6 | NFT Marketplace | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3" target="_blank">https://testnet.snowtrace.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3</a> |
 6 | Fandom NFT | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1748907" target="_blank">https://hashscan.io/testnet/contract/0.0.1748907</a> |
 7 | NFT Marketplace | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1749094" target="_blank">https://hashscan.io/testnet/contract/0.0.1749094</a> |
 

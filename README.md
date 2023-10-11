@@ -66,7 +66,7 @@ S. No. | Smart Contract | Chain | Contract Address |
 
 ## Demo
 
-<a href="https://64996021df9c3f1f20a94473--super-nasturtium-36743b.netlify.app/" target="_blank">https://64996021df9c3f1f20a94473--super-nasturtium-36743b.netlify.app/</a> 
+<a href="https://fandom-nft-marketplace-v2.netlify.app/" target="_blank">https://fandom-nft-marketplace-v2.netlify.app/</a> 
 
 ## Setup
 

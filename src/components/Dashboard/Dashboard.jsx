@@ -1,21 +1,20 @@
-import { useState, useContext, useEffect } from "react";
-import "./Dashboard.css";
-import Detail from "../Detail/Detail";
-import NoItem from "../NoItem/NoItem";
-import { MyContext } from "../App/App";
+import { useState, useContext, useEffect } from 'react'
+import './Dashboard.css'
+import Detail from '../Detail/Detail'
+import NoItem from '../NoItem/NoItem'
+import { MyContext } from '../App/App'
 import {
   getAllNftsOfUser,
   getAllListedNftsOfUser,
   convertToEther,
-} from "../../utils/wallet";
-import { getNFTDetailsFromURI } from "../../utils/metaDataFormat";
+} from '../../utils/wallet'
+import { getNFTDetailsFromURI } from '../../utils/metaDataFormat'
 
 function Dashboard() {
-
-  const [showDetail, setshowDetail] = useState(false);
-  const [nft_data, setnft_data] = useState(null);
-  const [item, setItem] = useState([]);
-  const [sellItem, setSellItem] = useState([]);
+  const [showDetail, setshowDetail] = useState(false)
+  const [nft_data, setnft_data] = useState(null)
+  const [item, setItem] = useState([])
+  const [sellItem, setSellItem] = useState([])
 
   /** Importing context API's states to use in the component*/
   const {
@@ -27,57 +26,56 @@ function Dashboard() {
     marketplaceContract,
     setModalDescription,
     setModalButtonEnabled,
-    chainConfig
-  } = useContext(MyContext);
+    chainConfig,
+    nativeDecimal,
+  } = useContext(MyContext)
 
   const fetchAllNftsOfUser = async () => {
-
-    setIsModalOpen(true);
-    setModalHeading("Fetching your NFT's");
+    setIsModalOpen(true)
+    setModalHeading("Fetching your NFT's")
     setModalDescription(
-      "Fetching your NFT's. Please hold on, it may take few seconds"
-    );
-    setModalButtonEnabled(false);
+      "Fetching your NFT's. Please hold on, it may take few seconds",
+    )
+    setModalButtonEnabled(false)
 
-    const nfts = await getAllNftsOfUser(nftContract, walletConnected);
+    const nfts = await getAllNftsOfUser(nftContract, walletConnected)
 
     if (nfts && nfts.length) {
-      let data;
-      let itemList = [];
+      let data
+      let itemList = []
       for (let element of nfts) {
-        data = await getNFTDetailsFromURI(element.tokenURI);
+        data = await getNFTDetailsFromURI(element.tokenURI)
         if (data) {
           itemList.push(
-            setNftItem(data, element.tokenId, element.tokenURI, element.amount)
-          );
+            setNftItem(data, element.tokenId, element.tokenURI, element.amount),
+          )
         }
       }
-      setItem(itemList);
+      setItem(itemList)
     } else {
-      setItem([]);
+      setItem([])
     }
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const fetchListedNftsOfUser = async () => {
-
-    setIsModalOpen(true);
-    setModalHeading("Fetching your NFT's");
+    setIsModalOpen(true)
+    setModalHeading("Fetching your NFT's")
     setModalDescription(
-      "Fetching your NFT's. Please hold on, it may take few seconds"
-    );
-    setModalButtonEnabled(false);
+      "Fetching your NFT's. Please hold on, it may take few seconds",
+    )
+    setModalButtonEnabled(false)
 
     const nfts = await getAllListedNftsOfUser(
       marketplaceContract,
-      walletConnected
-    );
+      walletConnected,
+    )
 
     if (nfts && nfts.length) {
-      let data;
-      let itemList = [];
+      let data
+      let itemList = []
       for (let element of nfts) {
-        data = await getNFTDetailsFromURI(element.uri);
+        data = await getNFTDetailsFromURI(element.uri)
         if (data) {
           itemList.push(
             setSellNftItem(
@@ -85,17 +83,17 @@ function Dashboard() {
               element.tokenId,
               element.uri,
               element.amountListed,
-              element.price
-            )
-          );
+              element.price,
+            ),
+          )
         }
       }
-      setSellItem(itemList);
+      setSellItem(itemList)
     } else {
-      setSellItem([]);
+      setSellItem([])
     }
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const setNftItem = (data, nftId, uri, amount) => {
     return {
@@ -106,8 +104,8 @@ function Dashboard() {
       uri: uri,
       amount: amount,
       attributes: data.attributes,
-    };
-  };
+    }
+  }
 
   //On sale NFT Detail
   const setSellNftItem = (data, nftId, uri, amount, price) => {
@@ -119,31 +117,31 @@ function Dashboard() {
       uri: uri,
       amount: amount,
       attributes: data.attributes,
-      price: convertToEther(price, 18),
-    };
-  };
+      price: convertToEther(price, nativeDecimal),
+    }
+  }
 
   useEffect(() => {
     if (nftContract && walletConnected && chainConfig) {
-      fetchAllNftsOfUser();
+      fetchAllNftsOfUser()
     } else {
-      setItem([]);
+      setItem([])
     }
-  }, [nftContract, walletConnected, chainConfig]);
+  }, [nftContract, walletConnected, chainConfig])
 
   useEffect(() => {
     if (marketplaceContract && walletConnected && chainConfig) {
-      fetchListedNftsOfUser();
+      fetchListedNftsOfUser()
     } else {
-      setSellItem([]);
+      setSellItem([])
     }
-  }, [marketplaceContract, walletConnected, chainConfig]);
+  }, [marketplaceContract, walletConnected, chainConfig])
 
   const openPopup = (i) => {
-    setshowDetail(true);
-    setnft_data(i);
-  };
-  
+    setshowDetail(true)
+    setnft_data(i)
+  }
+
   return (
     <div className="dashboard-create-item-containers">
       {item.length > 0 && isChainSupported && walletConnected && (
@@ -152,7 +150,10 @@ function Dashboard() {
             {item.length > 0 &&
               item.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card" key={i.nftId}>
+                  <div
+                    className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card"
+                    key={i.nftId}
+                  >
                     <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
@@ -169,7 +170,7 @@ function Dashboard() {
                       </button>
                     </div>
                   </div>
-                );
+                )
               })}
           </div>
         </div>
@@ -180,7 +181,10 @@ function Dashboard() {
             {sellItem.length > 0 &&
               sellItem.map((i) => {
                 return (
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card" key={i.nftId}>
+                  <div
+                    className="max-w-sm rounded overflow-hidden shadow-lg dashboard-card"
+                    key={i.nftId}
+                  >
                     <img src={i.image} alt="#" className="w-full img" />
                     <div className="px-6 py-4 ">
                       <h5 className="font-bold text-xl mb-2">{i.name}</h5>
@@ -188,7 +192,7 @@ function Dashboard() {
                         {i.description}
                       </p>
                       <p className="text-white-700 text-base text-[gold]">
-                        Price: {i.price} MATIC
+                        Price: {i.price} {chainConfig.currency}
                       </p>
                     </div>
                     <div className="px-6 pb-4">
@@ -200,18 +204,22 @@ function Dashboard() {
                       </button>
                     </div>
                   </div>
-                );
+                )
               })}
           </div>
         </div>
       )}
-      {!sellItem.length && !item.length &&
-        <NoItem heading="No NFT's found" content="You don't have any NFT's holding. Please mint NFT on Mint page" />}
+      {!sellItem.length && !item.length && (
+        <NoItem
+          heading="No NFT's found"
+          content="You don't have any NFT's holding. Please mint NFT on Mint page"
+        />
+      )}
       {showDetail && (
         <Detail setshowDetail={setshowDetail} nft_data={nft_data} />
       )}
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

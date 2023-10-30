@@ -1,0 +1,17 @@
+@startuml
+actor User as user
+participant "Browser UI" as browser
+participant "Blockchain" as Blockchain
+
+user->browser: Create NFT
+browser->Blockchain:  data to blockchain
+alt successfulcase
+
+    Blockchain-> browser: data
+    browser->user: NFT Created
+
+else unsuccessful
+   Blockchain->browser: error message
+    browser->user: error
+end
+@enduml

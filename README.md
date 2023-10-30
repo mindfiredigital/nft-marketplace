@@ -38,19 +38,19 @@ The NFT Marketplace provides a range of features to enhance your experience :-
 
 ## System Diagram
 
-![System Diagram](./docs/system-diagram.png)
+![System Diagram](./frontend/docs/system-diagram.png)
 
 ## Sequence diagram to mint NFT
 
-![Mint Sequence Diagram](./docs/mint.png)
+![Mint Sequence Diagram](./frontend/docs/mint.png)
 
 ## Sequence diagram to sell NFT
 
-![Sell Sequence Diagram](./docs/sell.png)
+![Sell Sequence Diagram](./frontend/docs/sell.png)
 
 ## Sequence diagram to buy NFT
 
-![Buy Sequence Diagram](./docs/buy.png)
+![Buy Sequence Diagram](./frontend/docs/buy.png)
 
 ## Smart Contract Details
 S. No. | Smart Contract | Chain | Contract Address |

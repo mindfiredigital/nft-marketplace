@@ -61,8 +61,8 @@ S. No. | Smart Contract | Chain | Contract Address |
 4 | NFT Marketplace | Sepolia | <a href="https://sepolia.etherscan.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3" target="_blank">https://sepolia.etherscan.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3</a> |
 5 | Fandom NFT | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4" target="_blank">https://testnet.snowtrace.io/address/0x740b9A44545367F97f6840dCb8F0c882A79687B4</a> |
 6 | NFT Marketplace | Avalanche Fuji | <a href="https://testnet.snowtrace.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3" target="_blank">https://testnet.snowtrace.io/address/0xA5E49fc6555b0A7f9FAe5a1400D7e5Afd20E1dE3</a> |
-6 | Fandom NFT | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1748907" target="_blank">https://hashscan.io/testnet/contract/0.0.1748907</a> |
-7 | NFT Marketplace | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1749094" target="_blank">https://hashscan.io/testnet/contract/0.0.1749094</a> |
+7 | Fandom NFT | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1748907" target="_blank">https://hashscan.io/testnet/contract/0.0.1748907</a> |
+8 | NFT Marketplace | Hedera | <a href="https://hashscan.io/testnet/contract/0.0.1749094" target="_blank">https://hashscan.io/testnet/contract/0.0.1749094</a> |
 
 ## Demo
 

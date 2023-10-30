@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app-prod
+    image: app-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    stdin_open: true
+    tty: true
+      

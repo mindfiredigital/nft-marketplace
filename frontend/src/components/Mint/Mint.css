@@ -1,0 +1,221 @@
+.form-create-item {
+  background: var(--color-4);
+  padding: 60px 70px;
+  overflow: hidden;
+}
+
+.form-create-item-content .form-background {
+  border-radius: 0px 12px 12px 0px;
+  overflow: hidden;
+}
+
+.form-create-item-content {
+  box-shadow: 4px 4px 60px rgba(99, 69, 237, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.create-item .sc-heading {
+  margin-bottom: 32px;
+  margin-top: -3px;
+  text-align: left;
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+}
+
+.main-heading {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+}
+
+.uploadFile {
+  /* position: relative; */
+  width: 100% !important;
+  height: 65px;
+  line-height: 65px;
+  border: 1px solid rgba(99, 69, 237, 0.12);
+  padding: 0 35px;
+  background-color: #5e5e74a1;
+  border-radius: 7px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.inputfile {
+  display: none;
+}
+
+.item-1 {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 65px;
+  padding: 0 35px;
+  border-radius: 7px;
+}
+
+.nft-name {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  padding: 0 35px;
+  border-radius: 7px;
+}
+
+.nft-input-rating {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  border-radius: 7px;
+  width: 5rem;
+  text-align: center;
+}
+
+.nft-input-rating-range {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 46px;
+  border-radius: 7px;
+  width: 5rem;
+  text-align: center;
+}
+
+.item-2 {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  height: 65px;
+  padding: 0 35px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+
+}
+
+textarea {
+  border: 1px solid rgba(99, 69, 237, 0.1);
+  background: #5e5e74a1;
+  padding-top: 18px;
+  padding-left: 35px;
+  height: 130px;
+  margin-bottom: 6px;
+  font-size: 18px;
+  color: var(--color-1);
+  font-weight: 700;
+  overflow: auto;
+  vertical-align: top;
+  border-radius: 7px;
+  position: relative;
+  width: 100%;
+}
+
+.sc-button {
+  width: 100%;
+  background: linear-gradient(130.35deg, #6345ed 17.35%, #dc39fc 78.23%);
+  margin-top: 20px;
+  border-radius: 19px 19px 19px 19px;
+  padding: 5px;
+}
+
+.sc-button:hover {
+  width: 100%;
+  background: #6345ed 17.35%;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+@media only screen and (max-width: 950px) {
+  textarea {
+    width: 50%;
+  }
+
+  .uploadFile {
+    width: 49%;
+  }
+
+  .sc-button {
+    width: 50%;
+  }
+
+}
+
+@media only screen and (max-width: 820px) {
+  textarea {
+    width: 60%;
+  }
+
+  .uploadFile {
+    width: 59%;
+  }
+
+  .sc-button {
+    width: 60%;
+  }
+
+
+}
+
+@media only screen and (max-width: 768px) {
+  textarea {
+    width: 65%;
+  }
+
+  .uploadFile {
+    width: 64%;
+  }
+
+  .sc-button {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  textarea {
+    width: 80%;
+  }
+
+}
+
+@media only screen and (max-width: 630px) {
+  textarea {
+    width: 95%;
+  }
+
+}
+
+.create-item-container {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

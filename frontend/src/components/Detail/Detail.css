@@ -1,0 +1,29 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .popup {
+    background-color: white;
+    color: black;
+    max-width: 500px;
+    padding: 20px;
+    box-shadow: 4px 4px 60px rgba(99, 69, 237, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .button{
+    border-radius: 19px 19px 19px 19px;
+    font-size: 1rem;
+  }
+  .param{
+    font-size: 1rem;
+  }
